@@ -1,0 +1,113 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 4,
+
+    "modules-left": [
+        "hyprland/workspaces",
+        "custom/spotify"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "tray",
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "battery",
+        "custom/power"
+    ],
+
+    "hyprland/workspaces": {
+        "format": "[{id}]",
+        "on-click": "activate",
+        "all-outputs": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        }
+    },
+
+    "clock": {
+        "format": "[{:%H:%M - %a %d %b}]",
+        "interval": 60,
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#33ccff'><b>{}</b></span>",
+                "days": "<span color='#c0caf5'><b>{}</b></span>",
+                "weeks": "<span color='#99d1db'><b>W{}</b></span>",
+                "weekdays": "<span color='#81a1c1'><b>{}</b></span>",
+                "today": "<span color='#00ff99'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "cpu": {
+        "format": "[CPU {usage}%]",
+        "tooltip": true,
+        "interval": 2
+    },
+
+    "memory": {
+        "format": "[RAM {percentage}%]",
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "[BAT {capacity}%]",
+        "format-charging": "[CHR {capacity}%]",
+        "format-plugged": "[AC {capacity}%]"
+    },
+
+    "network": {
+        "format-wifi": "[WIFI {essid}]",
+        "format-ethernet": "[ETH]",
+        "format-disconnected": "[NO NET]",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "pulseaudio": {
+        "format": "[VOL {volume}%]",
+        "format-muted": "[MUTE]",
+        "on-click": "pavucontrol"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+
+    "custom/spotify": {
+        "exec": "playerctl -p spotify metadata --format '[{{ artist }} - {{ title }}]' 2>/dev/null || echo ''",
+        "interval": 2,
+        "max-length": 50,
+        "on-click": "playerctl -p spotify play-pause",
+        "on-click-right": "playerctl -p spotify next",
+        "on-scroll-up": "playerctl -p spotify previous",
+        "on-scroll-down": "playerctl -p spotify next"
+    },
+
+    "custom/power": {
+        "format": "[PWR]",
+        "on-click": "~/.config/waybar/scripts/power-menu.sh",
+        "tooltip": false
+    }
+}

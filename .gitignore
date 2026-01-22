@@ -1,0 +1,14 @@
+# Flake build outputs
+result
+result-*
+
+# Nix build artifacts
+*.qcow2
+*.vdi
+*.vmdk
+
+# Editor files
+*~
+.*.swp
+.*.swo
+*.bak
