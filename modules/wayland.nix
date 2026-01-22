@@ -15,7 +15,6 @@
     settings = {
       default_session = {
         command = "${pkgs.hyprland}/bin/Hyprland";
-        # Use username from centralized variables
         user = config.system.variables.user.username;
       };
     };
