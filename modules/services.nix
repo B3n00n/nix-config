@@ -9,5 +9,5 @@
   };
 
   # Add user to docker group
-  users.users.${config.variables.mainUser}.extraGroups = [ "docker" ];
+  users.users.${config.system.variables.user.username}.extraGroups = [ "docker" ];
 }
