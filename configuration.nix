@@ -27,6 +27,7 @@
     ./modules/programs.nix
     ./modules/packages.nix
     ./modules/theme.nix
+    ./modules/services.nix
   ];
 
   # Allow proprietary packages (Discord, Spotify, etc.)
