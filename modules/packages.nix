@@ -46,5 +46,10 @@
     pavucontrol                   # PulseAudio GUI
     networkmanagerapplet          # NetworkManager GUI
     playerctl                     # Media player control
+
+    # Bluetooth utilities
+    bluez                         # Bluetooth protocol stack
+    bluez-tools                   # Additional Bluetooth tools
+    blueman                       # Bluetooth manager GUI
   ];
 }

@@ -26,6 +26,7 @@ in
         modules-right = [
           "tray"
           "pulseaudio"
+          "bluetooth"
           "network"
           "cpu"
           "memory"
@@ -96,6 +97,19 @@ in
           format-disconnected = "[NO NET]";
           tooltip-format = "{ifname}: {ipaddr}/{cidr}";
           on-click = "nm-connection-editor";
+        };
+
+        # Bluetooth
+        bluetooth = {
+          format = "[BT]";
+          format-disabled = "[BT OFF]";
+          format-connected = "[BT {device_alias}]";
+          format-connected-battery = "[BT {device_alias} {device_battery_percentage}%]";
+          tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
+          tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+          tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+          on-click = "blueman-manager";
         };
 
         # Audio
@@ -197,6 +211,7 @@ in
       /* Right modules */
       #tray,
       #pulseaudio,
+      #bluetooth,
       #network,
       #cpu,
       #memory,
@@ -244,6 +259,18 @@ in
 
       #network.disconnected {
           color: ${theme.colors.red};
+      }
+
+      #bluetooth {
+          color: ${theme.colors.blue};
+      }
+
+      #bluetooth.connected {
+          color: ${theme.colors.cyan};
+      }
+
+      #bluetooth.disabled {
+          color: ${theme.colors.comment};
       }
 
       #pulseaudio {
