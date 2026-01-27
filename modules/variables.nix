@@ -42,7 +42,7 @@
 
     # Paths
     paths = {
-      wallpaper = "etc/nixos/assets/wallpapers/tokyonight.jpg";
+      wallpaper = "/etc/nixos/assets/wallpapers/tokyonight.jpg";
       screenshots = "~/Pictures";
     };
 
