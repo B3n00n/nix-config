@@ -36,7 +36,16 @@ in
 
         # Hyprland workspaces
         "hyprland/workspaces" = {
-          format = "[{id}]";
+          format = "{name}";
+          format-icons = {
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            active = "";
+            default = "";
+          };
           on-click = "activate";
           all-outputs = true;
           persistent-workspaces = {
@@ -50,8 +59,8 @@ in
 
         # Clock module
         clock = {
-          format = "[{:%H:%M - %a %d %b}]";
-          interval = 60;
+          format = "{:%H:%M  %a %d %b}";
+          format-alt = "{:%A, %B %d, %Y  %H:%M:%S}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "month";
@@ -70,41 +79,46 @@ in
 
         # System monitoring
         cpu = {
-          format = "[CPU {usage}%]";
+          format = "󰻠 {usage}%";
           tooltip = true;
           interval = 2;
         };
 
         memory = {
-          format = "[RAM {percentage}%]";
+          format = "󰍛 {percentage}%";
           tooltip-format = "RAM: {used:0.1f}G / {total:0.1f}G";
         };
 
         battery = {
+          bat = "BAT0";
           states = {
             warning = 30;
             critical = 15;
           };
-          format = "[BAT {capacity}%]";
-          format-charging = "[CHR {capacity}%]";
-          format-plugged = "[AC {capacity}%]";
+          format = "{icon} {capacity}%";
+          format-charging = "󰂄 {capacity}%";
+          format-plugged = "󰚥 {capacity}%";
+          format-full = "󱟢 {capacity}%";
+          format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
         };
 
         # Network
         network = {
-          format-wifi = "[WIFI {essid}]";
-          format-ethernet = "[ETH]";
-          format-disconnected = "[NO NET]";
+          format-wifi = "󰖩 {essid}";
+          format-ethernet = "󰈀 Connected";
+          format-disconnected = "󰖪 Disconnected";
           tooltip-format = "{ifname}: {ipaddr}/{cidr}";
+          tooltip-format-wifi = "󰖩 {essid} ({signalStrength}%)\n{ipaddr}/{cidr}";
+          tooltip-format-ethernet = "󰈀 {ifname}\n{ipaddr}/{cidr}";
           on-click = "nm-connection-editor";
         };
 
         # Bluetooth
         bluetooth = {
-          format = "[BT]";
-          format-disabled = "[BT OFF]";
-          format-connected = "[BT {device_alias}]";
-          format-connected-battery = "[BT {device_alias} {device_battery_percentage}%]";
+          format = "󰂯";
+          format-disabled = "󰂲";
+          format-connected = "󰂱 {device_alias}";
+          format-connected-battery = "󰂱 {device_alias} {device_battery_percentage}%";
           tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
           tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
@@ -114,8 +128,11 @@ in
 
         # Audio
         pulseaudio = {
-          format = "[VOL {volume}%]";
-          format-muted = "[MUTE]";
+          format = "{icon} {volume}%";
+          format-muted = "󰝟 Muted";
+          format-icons = {
+            default = ["󰕿" "󰖀" "󰕾"];
+          };
           on-click = "pavucontrol";
         };
 
@@ -127,7 +144,7 @@ in
 
         # Custom modules
         "custom/spotify" = {
-          exec = "playerctl -p spotify metadata --format '[{{ artist }} - {{ title }}]' 2>/dev/null || echo ''";
+          exec = "playerctl -p spotify metadata --format '{{ artist }} - {{ title }}' 2>/dev/null || echo ''";
           interval = 2;
           max-length = 50;
           on-click = "playerctl -p spotify play-pause";
@@ -137,78 +154,112 @@ in
         };
 
         "custom/power" = {
-          format = "[PWR]";
+          format = "⏻";
           on-click = "~/.config/waybar/scripts/power-menu.sh";
           tooltip = false;
         };
       };
     };
 
-    # Tokyo Night styled CSS
+    # CLEAN MODERN STYLE - Elegant, minimal, beautiful
     style = ''
       * {
           border: none;
           border-radius: 0;
-          font-family: "${theme.fonts.monospace}", monospace;
-          font-size: ${toString theme.fonts.size.large}px;
+          font-family: "JetBrainsMono Nerd Font", "${theme.fonts.monospace}", monospace;
+          font-size: 12px;
           min-height: 0;
-          font-weight: bold;
+          font-weight: 500;
       }
 
       window#waybar {
           background-color: rgba(26, 27, 38, 0.95);
           color: ${theme.colors.foreground};
-          transition-property: background-color;
-          transition-duration: 0.5s;
+          transition: background-color 0.3s ease;
       }
 
-      /* Workspace buttons */
+      /* Workspaces */
+      #workspaces {
+          margin: 4px 8px;
+          padding: 0;
+          background: transparent;
+      }
+
       #workspaces button {
-          padding: 0 8px;
-          background-color: transparent;
-          color: ${theme.colors.blue};
-          border-bottom: 2px solid transparent;
+          padding: 4px 10px;
+          margin: 0 2px;
+          background-color: rgba(31, 35, 53, 0.6);
+          color: ${theme.colors.foreground};
+          border-radius: 8px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       #workspaces button:hover {
-          background-color: rgba(122, 162, 247, 0.1);
+          background-color: rgba(51, 204, 255, 0.15);
+          box-shadow: 0 2px 8px rgba(51, 204, 255, 0.2);
       }
 
       #workspaces button.active {
-          color: ${theme.colors.cyan};
-          border-bottom: 2px solid ${theme.colors.cyan};
+          background: linear-gradient(135deg, ${theme.colors.cyan}, ${theme.colors.blue});
+          color: #1a1b26;
+          font-weight: 600;
+          box-shadow: 0 2px 12px rgba(51, 204, 255, 0.4);
       }
 
       #workspaces button.urgent {
-          color: ${theme.colors.red};
-          border-bottom: 2px solid ${theme.colors.red};
+          background-color: ${theme.colors.red};
+          color: #1a1b26;
+          animation: blink-urgent 1s ease-in-out infinite;
       }
 
       /* Clock */
       #clock {
-          padding: 0 15px;
+          background-color: rgba(31, 35, 53, 0.6);
+          padding: 4px 16px;
+          margin: 4px 8px;
           color: ${theme.colors.purple};
-          font-weight: bold;
+          border-radius: 10px;
+          font-weight: 600;
+          transition: all 0.3s ease;
       }
 
-      /* Custom modules */
+      #clock:hover {
+          background-color: rgba(187, 154, 247, 0.15);
+          box-shadow: inset 0 0 8px rgba(187, 154, 247, 0.3);
+      }
+
+      /* Spotify */
       #custom-spotify {
-          padding: 0 10px;
-          margin: 0 5px;
+          background-color: rgba(31, 35, 53, 0.6);
+          padding: 4px 14px;
+          margin: 4px 4px;
           color: ${theme.colors.green};
+          border-radius: 10px;
+          transition: all 0.3s ease;
       }
 
+      #custom-spotify:hover {
+          background-color: rgba(0, 255, 153, 0.15);
+          box-shadow: inset 0 0 8px rgba(0, 255, 153, 0.3);
+      }
+
+      /* Power Button */
       #custom-power {
-          padding: 0 10px;
-          margin: 0 5px;
+          background-color: rgba(31, 35, 53, 0.6);
+          padding: 4px 12px;
+          margin: 4px 8px 4px 4px;
           color: ${theme.colors.red};
+          border-radius: 10px;
+          font-size: 16px;
+          transition: all 0.3s ease;
       }
 
       #custom-power:hover {
           background-color: rgba(247, 118, 142, 0.2);
+          box-shadow: inset 0 0 12px rgba(247, 118, 142, 0.4);
       }
 
-      /* Right modules */
+      /* System Modules */
       #tray,
       #pulseaudio,
       #bluetooth,
@@ -216,18 +267,29 @@ in
       #cpu,
       #memory,
       #battery {
-          padding: 0 6px;
-          margin: 0 3px;
-          background-color: transparent;
-          border-radius: 0;
+          background-color: rgba(31, 35, 53, 0.6);
+          padding: 4px 12px;
+          margin: 4px 3px;
+          border-radius: 10px;
+          transition: all 0.3s ease;
       }
 
       #cpu {
           color: ${theme.colors.lightCyan};
       }
 
+      #cpu:hover {
+          background-color: rgba(125, 207, 255, 0.15);
+          box-shadow: inset 0 0 8px rgba(125, 207, 255, 0.3);
+      }
+
       #memory {
           color: ${theme.colors.purple};
+      }
+
+      #memory:hover {
+          background-color: rgba(187, 154, 247, 0.15);
+          box-shadow: inset 0 0 8px rgba(187, 154, 247, 0.3);
       }
 
       #battery {
@@ -236,21 +298,24 @@ in
 
       #battery.charging {
           color: ${theme.colors.green};
+          background-color: rgba(0, 255, 153, 0.1);
       }
 
       #battery.warning:not(.charging) {
           color: ${theme.colors.yellow};
+          background-color: rgba(224, 175, 104, 0.15);
       }
 
       #battery.critical:not(.charging) {
           color: ${theme.colors.red};
-          animation: blink 1s linear infinite;
+          background-color: rgba(247, 118, 142, 0.2);
+          animation: blink-urgent 1s ease-in-out infinite;
       }
 
-      @keyframes blink {
-          50% {
-              opacity: 0.5;
-          }
+      @keyframes blink-urgent {
+          from { opacity: 1; }
+          50% { opacity: 0.5; }
+          to { opacity: 1; }
       }
 
       #network {
@@ -259,6 +324,11 @@ in
 
       #network.disconnected {
           color: ${theme.colors.red};
+      }
+
+      #network:hover {
+          background-color: rgba(122, 162, 247, 0.15);
+          box-shadow: inset 0 0 8px rgba(122, 162, 247, 0.3);
       }
 
       #bluetooth {
@@ -273,6 +343,11 @@ in
           color: ${theme.colors.comment};
       }
 
+      #bluetooth:hover {
+          background-color: rgba(51, 204, 255, 0.15);
+          box-shadow: inset 0 0 8px rgba(51, 204, 255, 0.3);
+      }
+
       #pulseaudio {
           color: ${theme.colors.lightCyan};
       }
@@ -281,8 +356,13 @@ in
           color: ${theme.colors.comment};
       }
 
+      #pulseaudio:hover {
+          background-color: rgba(125, 207, 255, 0.15);
+          box-shadow: inset 0 0 8px rgba(125, 207, 255, 0.3);
+      }
+
       #tray {
-          background-color: transparent;
+          padding: 4px 8px;
       }
 
       #tray > .passive {
@@ -291,6 +371,7 @@ in
 
       #tray > .needs-attention {
           -gtk-icon-effect: highlight;
+          background-color: rgba(247, 118, 142, 0.2);
       }
     '';
   };
