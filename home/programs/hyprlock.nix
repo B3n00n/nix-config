@@ -67,7 +67,7 @@ in
           inner_color = theme.colors.background;
           font_color = theme.colors.foreground;
           fade_on_empty = false;
-          placeholder_text = "<span foreground=\"#565f89\">Enter Password...</span>";
+          placeholder_text = "<span foreground='##565f89'>Enter Password...</span>";
           hide_input = false;
           position = "0, -100";
           halign = "center";
