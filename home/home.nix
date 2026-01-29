@@ -1,5 +1,5 @@
 # Home Manager Configuration
-{ pkgs, inputs, systemVars, ... }:
+{ pkgs, inputs, systemVars, claude-code, ... }:
 
 let
   # Import Tokyo Night theme
@@ -39,14 +39,16 @@ in
     stateVersion = "25.11";
 
     # User-specific packages
-    packages = with pkgs; [
+    packages = [
+      claude-code            # AI coding assistant (always up-to-date from flake)
+    ] ++ (with pkgs; [
       # Desktop applications
       firefox                # Web browser
       vscode                 # Code editor
       discord                # Chat application
       android-studio         # Android Studio
       godot_4              # Godot Engine 4.x
-      
+
       # Terminal and shell
       kitty                  # Terminal emulator
       zsh                    # Z shell
@@ -66,7 +68,7 @@ in
       grim                   # Screenshot utility
       slurp                  # Screen area selection
       imv                    # Image viewer
-    ];
+    ]);
 
     # Session variables using centralized configuration
     sessionVariables = {

@@ -13,7 +13,6 @@
     gh                  # GitHub CLI
     btop                # Process monitor
     neofetch            # System information
-    claude-code         # AI coding assistant
     tree                # Directory tree visualization
 
     # Archive tools

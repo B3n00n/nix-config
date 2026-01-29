@@ -16,9 +16,14 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Always up-to-date Claude Code
+    claude-code-nix = {
+      url = "github:sadjow/claude-code-nix";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, spicetify-nix, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, spicetify-nix, claude-code-nix, ... }@inputs: 
     let
       # System architecture
       system = "x86_64-linux";
@@ -55,10 +60,12 @@
               users.${vars.user.username} = import ./home/home.nix;
 
               # Make inputs and system config available to home-manager
-              extraSpecialArgs = { 
-                inherit inputs; 
+              extraSpecialArgs = {
+                inherit inputs;
                 # Pass system variables to home-manager
                 systemVars = vars;
+                # Pass always-up-to-date Claude Code to home-manager
+                inherit (claude-code-nix.packages.${system}) claude-code;
               };
             };
           }
