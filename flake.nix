@@ -2,12 +2,12 @@
   description = "B3n00n's NixOS Configuration - Professional Hyprland Setup";
 
   inputs = {
-    # NixOS stable channel (25.11)
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    # NixOS unstable channel
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home Manager (matching nixpkgs version)
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

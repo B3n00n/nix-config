@@ -45,6 +45,7 @@ in
       vscode                 # Code editor
       discord                # Chat application
       android-studio         # Android Studio
+      godot_4                # Godot Engine 4.x
       
       # Terminal and shell
       kitty                  # Terminal emulator

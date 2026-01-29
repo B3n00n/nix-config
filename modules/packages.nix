@@ -24,11 +24,11 @@
     file-roller         # Archive manager GUI (required for Thunar integration)
 
     # File management
-    xfce.thunar                   # Lightweight file manager
-    xfce.thunar-archive-plugin    # Archive extraction in Thunar
-    xfce.thunar-volman            # Automatic volume management
-    xfce.tumbler                  # Thumbnail service
-    xfce.exo                      # Application launcher (for "Open Terminal Here")
+    thunar                        # Lightweight file manager
+    thunar-archive-plugin         # Archive extraction in Thunar
+    thunar-volman                 # Automatic volume management
+    tumbler                       # Thumbnail service
+    xfce4-exo                     # Application launcher (for "Open Terminal Here")
     
     # File type detection and theming
     shared-mime-info              # MIME type database
