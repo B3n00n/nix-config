@@ -142,7 +142,6 @@ in
       # Input configuration
       input = {
         kb_layout = "us,il";
-        kb_options = "grp:alt_shift_toggle";
         follow_mouse = 1;
         sensitivity = 0;
 
@@ -162,6 +161,9 @@ in
 
       # Key bindings
       bind = [
+        # Keyboard layout switch (Super+Shift)
+        "SUPER, Shift_L, exec, hyprctl switchxkblayout all next"
+
         # Core applications
         "$mainMod, RETURN, exec, $terminal"
         "$mainMod, Q, killactive,"
