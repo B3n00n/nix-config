@@ -23,6 +23,10 @@
   # Bluetooth manager service
   services.blueman.enable = true;
 
+  # USB automounting support
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+
   # Add user to docker group
   users.users.${config.system.variables.user.username}.extraGroups = [ "docker" ];
 }
