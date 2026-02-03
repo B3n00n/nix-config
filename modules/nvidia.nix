@@ -1,6 +1,6 @@
 # NVIDIA GPU configuration for Wayland/Hyprland
 # Optimized for RTX 40/50 series cards
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   # Load NVIDIA driver
@@ -19,9 +19,6 @@
 
     # Enable nvidia-settings GUI tool
     nvidiaSettings = true;
-
-    # Use the stable driver package
-    package = config.hardware.nvidia.package;
   };
 
   # Enable graphics/OpenGL support
