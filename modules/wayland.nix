@@ -5,6 +5,14 @@
   # Enable Hyprland Wayland compositor
   programs.hyprland.enable = true;
 
+  # NVIDIA + Wayland environment variables
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    GBM_BACKEND = "nvidia-drm";
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
+
   # Enable polkit for GUI authentication dialogs
   # Required for elevated privilege operations in GUI applications
   security.polkit.enable = true;
