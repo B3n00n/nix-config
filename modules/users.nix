@@ -15,7 +15,8 @@ in
     # - networkmanager: network configuration
     # - audio: audio device access
     # - video: video device access
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+    # - dialout: serial port access (Arduino, etc.)
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "dialout" ];
 
     # Set Zsh as the default shell from variables
     shell = pkgs.${vars.user.shell};
