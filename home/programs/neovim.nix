@@ -180,10 +180,9 @@
       -- ========================================
       -- LSP CONFIGURATION
       -- ========================================
-      local lspconfig = require('lspconfig')
 
       -- Nix LSP
-      lspconfig.nixd.setup({})
+      vim.lsp.enable('nixd')
 
       -- Show diagnostics on hover
       vim.api.nvim_create_autocmd("CursorHold", {
