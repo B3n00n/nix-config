@@ -1,5 +1,5 @@
 # Hypridle Idle Daemon Configuration
-{ systemVars ? null, ... }:
+{ ... }:
 
 {
   services.hypridle = {

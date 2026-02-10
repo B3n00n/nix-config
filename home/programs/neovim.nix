@@ -1,4 +1,4 @@
-{ pkgs, systemVars ? null, ... }:
+{ pkgs, theme, ... }:
 
 {
   programs.neovim = {
@@ -9,7 +9,7 @@
 
     plugins = with pkgs.vimPlugins; [
       # Theme
-      tokyonight-nvim
+      pkgs.vimPlugins.${theme.apps.neovim.plugin}
 
       # File explorer
       nvim-tree-lua
@@ -72,7 +72,7 @@
       -- ========================================
       -- THEME CONFIGURATION
       -- ========================================
-      vim.cmd[[colorscheme tokyonight-night]]
+      vim.cmd[[colorscheme ${theme.apps.neovim.colorscheme}]]
 
       -- ========================================
       -- BASIC SETTINGS
@@ -133,7 +133,7 @@
       -- ========================================
       require('lualine').setup({
         options = {
-          theme = 'tokyonight',
+          theme = '${theme.apps.neovim.lualine}',
           component_separators = '|',
           section_separators = { left = '█', right = '█' },
         },
@@ -461,9 +461,6 @@
     '';
 
     extraPackages = with pkgs; [
-      # Language servers
-      nixd              # Nix LSP
-
       # Required tools
       ripgrep           # For Telescope live_grep
       fd                # For Telescope find_files

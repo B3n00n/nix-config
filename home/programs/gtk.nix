@@ -1,9 +1,7 @@
-# GTK Configuration - Tokyo Night Theme
-{ config, pkgs, systemVars, ... }:
+# GTK Configuration
+{ config, pkgs, systemVars, theme, ... }:
 
 let
-  # Import Tokyo Night theme
-  theme = import ../../modules/theme/tokyo-night.nix;
   vars = systemVars;
 in
 {
@@ -65,22 +63,22 @@ in
         gtk-decoration-layout = "menu:close";
       };
 
-      # Custom CSS for Tokyo Night theming
+      # Custom CSS for theme
       extraCss = ''
-        /* Tokyo Night GTK Theme - Custom CSS */
+        /* GTK Theme - Custom CSS */
 
         /* Base colors */
         @define-color theme_bg_color ${theme.colors.background};
         @define-color theme_fg_color ${theme.colors.foreground};
-        @define-color theme_base_color ${theme.colors.gray2};
+        @define-color theme_base_color ${theme.colors.surface1};
         @define-color theme_text_color ${theme.colors.foreground};
-        @define-color theme_selected_bg_color ${theme.colors.cyan};
+        @define-color theme_selected_bg_color ${theme.colors.primary};
         @define-color theme_selected_fg_color ${theme.colors.background};
 
         /* Additional semantic colors */
-        @define-color insensitive_bg_color ${theme.colors.gray1};
+        @define-color insensitive_bg_color ${theme.colors.surface0};
         @define-color insensitive_fg_color ${theme.colors.comment};
-        @define-color borders ${theme.colors.gray3};
+        @define-color borders ${theme.colors.surface2};
         @define-color warning_color ${theme.colors.yellow};
         @define-color error_color ${theme.colors.red};
         @define-color success_color ${theme.colors.green};
@@ -93,9 +91,9 @@ in
 
         /* Headerbar styling */
         headerbar {
-          background-color: ${theme.colors.gray1};
+          background-color: ${theme.colors.surface0};
           color: ${theme.colors.foreground};
-          border-bottom: 2px solid ${theme.colors.gray3};
+          border-bottom: 2px solid ${theme.colors.surface2};
           box-shadow: none;
         }
 
@@ -105,45 +103,45 @@ in
 
         /* Buttons */
         button {
-          background-color: ${theme.colors.gray2};
+          background-color: ${theme.colors.surface1};
           color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.gray3};
+          border: 1px solid ${theme.colors.surface2};
           border-radius: ${toString theme.border.radius}px;
           padding: 6px 12px;
         }
 
         button:hover {
-          background-color: ${theme.colors.gray3};
-          border-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.surface2};
+          border-color: ${theme.colors.primary};
         }
 
         button:active,
         button:checked {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
           color: ${theme.colors.background};
         }
 
         button:disabled {
-          background-color: ${theme.colors.gray1};
+          background-color: ${theme.colors.surface0};
           color: ${theme.colors.comment};
         }
 
         /* Entry fields (text inputs) */
         entry {
-          background-color: ${theme.colors.gray2};
+          background-color: ${theme.colors.surface1};
           color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.gray3};
+          border: 1px solid ${theme.colors.surface2};
           border-radius: ${toString theme.border.radius}px;
           padding: 6px;
         }
 
         entry:focus {
-          border-color: ${theme.colors.cyan};
-          box-shadow: 0 0 0 1px ${theme.colors.cyan};
+          border-color: ${theme.colors.primary};
+          box-shadow: 0 0 0 1px ${theme.colors.primary};
         }
 
         entry:disabled {
-          background-color: ${theme.colors.gray1};
+          background-color: ${theme.colors.surface0};
           color: ${theme.colors.comment};
         }
 
@@ -154,7 +152,7 @@ in
         }
 
         *:selected {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
           color: ${theme.colors.background};
         }
 
@@ -164,22 +162,22 @@ in
         }
 
         scrollbar slider {
-          background-color: ${theme.colors.gray3};
+          background-color: ${theme.colors.surface2};
           border-radius: ${toString theme.border.radius}px;
           min-width: 12px;
           min-height: 12px;
         }
 
         scrollbar slider:hover {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
         }
 
         /* Menus */
         menu,
         .menu {
-          background-color: ${theme.colors.gray1};
+          background-color: ${theme.colors.surface0};
           color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.gray3};
+          border: 1px solid ${theme.colors.surface2};
           border-radius: ${toString theme.border.radius}px;
         }
 
@@ -188,27 +186,27 @@ in
         }
 
         menuitem:hover {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
           color: ${theme.colors.background};
         }
 
         /* Tooltips */
         tooltip {
-          background-color: ${theme.colors.gray1};
+          background-color: ${theme.colors.surface0};
           color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.cyan};
+          border: 1px solid ${theme.colors.primary};
           border-radius: ${toString theme.border.radius}px;
           padding: 6px;
         }
 
         /* Sidebars (like in Thunar) */
         .sidebar {
-          background-color: ${theme.colors.gray1};
+          background-color: ${theme.colors.surface0};
           color: ${theme.colors.foreground};
         }
 
         .sidebar:selected {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
           color: ${theme.colors.background};
         }
 
@@ -218,8 +216,8 @@ in
         }
 
         notebook header {
-          background-color: ${theme.colors.gray1};
-          border-bottom: 2px solid ${theme.colors.gray3};
+          background-color: ${theme.colors.surface0};
+          border-bottom: 2px solid ${theme.colors.surface2};
         }
 
         notebook tab {
@@ -230,14 +228,14 @@ in
         }
 
         notebook tab:hover {
-          background-color: ${theme.colors.gray2};
+          background-color: ${theme.colors.surface1};
           color: ${theme.colors.foreground};
         }
 
         notebook tab:checked {
           background-color: ${theme.colors.background};
-          color: ${theme.colors.cyan};
-          border-bottom: 2px solid ${theme.colors.cyan};
+          color: ${theme.colors.primary};
+          border-bottom: 2px solid ${theme.colors.primary};
         }
 
         /* Treeview (file lists, etc.) */
@@ -247,50 +245,50 @@ in
         }
 
         treeview:selected {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
           color: ${theme.colors.background};
         }
 
         treeview:hover {
-          background-color: ${theme.colors.gray2};
+          background-color: ${theme.colors.surface1};
         }
 
         /* Checkboxes and radio buttons */
         checkbutton check,
         radiobutton radio {
-          background-color: ${theme.colors.gray2};
-          border: 1px solid ${theme.colors.gray3};
+          background-color: ${theme.colors.surface1};
+          border: 1px solid ${theme.colors.surface2};
           border-radius: 3px;
         }
 
         checkbutton check:checked,
         radiobutton radio:checked {
-          background-color: ${theme.colors.cyan};
-          border-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
+          border-color: ${theme.colors.primary};
           -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
           color: ${theme.colors.background};
         }
 
         /* Progress bars */
         progressbar {
-          background-color: ${theme.colors.gray2};
+          background-color: ${theme.colors.surface1};
           border-radius: ${toString theme.border.radius}px;
         }
 
         progressbar progress {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
           border-radius: ${toString theme.border.radius}px;
         }
 
         /* Switches */
         switch {
-          background-color: ${theme.colors.gray2};
-          border: 1px solid ${theme.colors.gray3};
+          background-color: ${theme.colors.surface1};
+          border: 1px solid ${theme.colors.surface2};
           border-radius: ${toString theme.border.radius}px;
         }
 
         switch:checked {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
         }
 
         switch slider {
@@ -300,16 +298,16 @@ in
 
         /* Separators */
         separator {
-          background-color: ${theme.colors.gray3};
+          background-color: ${theme.colors.surface2};
           min-width: 1px;
           min-height: 1px;
         }
 
         /* Popovers */
         popover {
-          background-color: ${theme.colors.gray1};
+          background-color: ${theme.colors.surface0};
           color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.gray3};
+          border: 1px solid ${theme.colors.surface2};
           border-radius: ${toString theme.border.radius}px;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
@@ -323,14 +321,14 @@ in
 
         list row:selected,
         .view:selected {
-          background-color: ${theme.colors.cyan};
+          background-color: ${theme.colors.primary};
           color: ${theme.colors.background};
         }
 
         /* Spinbuttons (number inputs) */
         spinbutton {
-          background-color: ${theme.colors.gray2};
-          border: 1px solid ${theme.colors.gray3};
+          background-color: ${theme.colors.surface1};
+          border: 1px solid ${theme.colors.surface2};
           border-radius: ${toString theme.border.radius}px;
         }
 
@@ -340,7 +338,7 @@ in
         }
 
         spinbutton button:hover {
-          background-color: ${theme.colors.gray3};
+          background-color: ${theme.colors.surface2};
         }
       '';
     };
@@ -354,26 +352,26 @@ in
 
       # Custom CSS for GTK 4 (similar to GTK 3 but with updated selectors)
       extraCss = ''
-        /* Tokyo Night GTK 4 Theme - Custom CSS */
+        /* GTK 4 Theme - Custom CSS */
 
         /* Base colors */
         @define-color theme_bg_color ${theme.colors.background};
         @define-color theme_fg_color ${theme.colors.foreground};
-        @define-color accent_bg_color ${theme.colors.cyan};
+        @define-color accent_bg_color ${theme.colors.primary};
         @define-color accent_fg_color ${theme.colors.background};
         @define-color window_bg_color ${theme.colors.background};
         @define-color window_fg_color ${theme.colors.foreground};
         @define-color view_bg_color ${theme.colors.background};
         @define-color view_fg_color ${theme.colors.foreground};
-        @define-color headerbar_bg_color ${theme.colors.gray1};
+        @define-color headerbar_bg_color ${theme.colors.surface0};
         @define-color headerbar_fg_color ${theme.colors.foreground};
-        @define-color card_bg_color ${theme.colors.gray2};
+        @define-color card_bg_color ${theme.colors.surface1};
         @define-color card_fg_color ${theme.colors.foreground};
-        @define-color popover_bg_color ${theme.colors.gray1};
+        @define-color popover_bg_color ${theme.colors.surface0};
         @define-color popover_fg_color ${theme.colors.foreground};
-        @define-color dialog_bg_color ${theme.colors.gray1};
+        @define-color dialog_bg_color ${theme.colors.surface0};
         @define-color dialog_fg_color ${theme.colors.foreground};
-        @define-color sidebar_bg_color ${theme.colors.gray1};
+        @define-color sidebar_bg_color ${theme.colors.surface0};
         @define-color sidebar_fg_color ${theme.colors.foreground};
         @define-color warning_bg_color ${theme.colors.yellow};
         @define-color warning_fg_color ${theme.colors.background};

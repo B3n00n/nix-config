@@ -1,10 +1,6 @@
 # Waybar Status Bar Configuration
-{ pkgs, systemVars, ... }:
+{ theme, ... }:
 
-let
-  # Import Tokyo Night theme
-  theme = import ../../modules/theme/tokyo-night.nix;
-in
 {
   programs.waybar = {
     enable = true;
@@ -68,11 +64,11 @@ in
             weeks-pos = "right";
             on-scroll = 1;
             format = {
-              months = "<span color='#33ccff'><b>{}</b></span>";
-              days = "<span color='#c0caf5'><b>{}</b></span>";
-              weeks = "<span color='#99d1db'><b>W{}</b></span>";
-              weekdays = "<span color='#81a1c1'><b>{}</b></span>";
-              today = "<span color='#00ff99'><b><u>{}</u></b></span>";
+              months = "<span color='${theme.colors.primary}'><b>{}</b></span>";
+              days = "<span color='${theme.colors.foreground}'><b>{}</b></span>";
+              weeks = "<span color='${theme.colors.lightCyan}'><b>W{}</b></span>";
+              weekdays = "<span color='${theme.colors.blue}'><b>{}</b></span>";
+              today = "<span color='${theme.colors.green}'><b><u>{}</u></b></span>";
             };
           };
         };
@@ -166,14 +162,14 @@ in
       * {
           border: none;
           border-radius: 0;
-          font-family: "JetBrainsMono Nerd Font", "${theme.fonts.monospace}", monospace;
+          font-family: "${theme.fonts.monospace}", monospace;
           font-size: 12px;
           min-height: 0;
           font-weight: 500;
       }
 
       window#waybar {
-          background-color: rgba(26, 27, 38, 0.95);
+          background-color: ${theme.hexToRgba theme.colors.background "0.95"};
           color: ${theme.colors.foreground};
           transition: background-color 0.3s ease;
       }
@@ -188,33 +184,33 @@ in
       #workspaces button {
           padding: 4px 10px;
           margin: 0 2px;
-          background-color: rgba(31, 35, 53, 0.6);
+          background-color: ${theme.hexToRgba theme.colors.surface0 "0.6"};
           color: ${theme.colors.foreground};
           border-radius: 8px;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       #workspaces button:hover {
-          background-color: rgba(51, 204, 255, 0.15);
-          box-shadow: 0 2px 8px rgba(51, 204, 255, 0.2);
+          background-color: ${theme.hexToRgba theme.colors.primary "0.15"};
+          box-shadow: 0 2px 8px ${theme.hexToRgba theme.colors.primary "0.2"};
       }
 
       #workspaces button.active {
-          background: linear-gradient(135deg, ${theme.colors.cyan}, ${theme.colors.blue});
-          color: #1a1b26;
+          background: linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.blue});
+          color: ${theme.colors.background};
           font-weight: 600;
-          box-shadow: 0 2px 12px rgba(51, 204, 255, 0.4);
+          box-shadow: 0 2px 12px ${theme.hexToRgba theme.colors.primary "0.4"};
       }
 
       #workspaces button.urgent {
           background-color: ${theme.colors.red};
-          color: #1a1b26;
+          color: ${theme.colors.background};
           animation: blink-urgent 1s ease-in-out infinite;
       }
 
       /* Clock */
       #clock {
-          background-color: rgba(31, 35, 53, 0.6);
+          background-color: ${theme.hexToRgba theme.colors.surface0 "0.6"};
           padding: 4px 16px;
           margin: 4px 8px;
           color: ${theme.colors.purple};
@@ -224,13 +220,13 @@ in
       }
 
       #clock:hover {
-          background-color: rgba(187, 154, 247, 0.15);
-          box-shadow: inset 0 0 8px rgba(187, 154, 247, 0.3);
+          background-color: ${theme.hexToRgba theme.colors.purple "0.15"};
+          box-shadow: inset 0 0 8px ${theme.hexToRgba theme.colors.purple "0.3"};
       }
 
       /* Spotify */
       #custom-spotify {
-          background-color: rgba(31, 35, 53, 0.6);
+          background-color: ${theme.hexToRgba theme.colors.surface0 "0.6"};
           padding: 4px 14px;
           margin: 4px 4px;
           color: ${theme.colors.green};
@@ -239,13 +235,13 @@ in
       }
 
       #custom-spotify:hover {
-          background-color: rgba(0, 255, 153, 0.15);
-          box-shadow: inset 0 0 8px rgba(0, 255, 153, 0.3);
+          background-color: ${theme.hexToRgba theme.colors.green "0.15"};
+          box-shadow: inset 0 0 8px ${theme.hexToRgba theme.colors.green "0.3"};
       }
 
       /* Power Button */
       #custom-power {
-          background-color: rgba(31, 35, 53, 0.6);
+          background-color: ${theme.hexToRgba theme.colors.surface0 "0.6"};
           padding: 4px 12px;
           margin: 4px 8px 4px 4px;
           color: ${theme.colors.red};
@@ -255,8 +251,8 @@ in
       }
 
       #custom-power:hover {
-          background-color: rgba(247, 118, 142, 0.2);
-          box-shadow: inset 0 0 12px rgba(247, 118, 142, 0.4);
+          background-color: ${theme.hexToRgba theme.colors.red "0.2"};
+          box-shadow: inset 0 0 12px ${theme.hexToRgba theme.colors.red "0.4"};
       }
 
       /* System Modules */
@@ -267,7 +263,7 @@ in
       #cpu,
       #memory,
       #battery {
-          background-color: rgba(31, 35, 53, 0.6);
+          background-color: ${theme.hexToRgba theme.colors.surface0 "0.6"};
           padding: 4px 12px;
           margin: 4px 3px;
           border-radius: 10px;
@@ -279,8 +275,8 @@ in
       }
 
       #cpu:hover {
-          background-color: rgba(125, 207, 255, 0.15);
-          box-shadow: inset 0 0 8px rgba(125, 207, 255, 0.3);
+          background-color: ${theme.hexToRgba theme.colors.lightCyan "0.15"};
+          box-shadow: inset 0 0 8px ${theme.hexToRgba theme.colors.lightCyan "0.3"};
       }
 
       #memory {
@@ -288,8 +284,8 @@ in
       }
 
       #memory:hover {
-          background-color: rgba(187, 154, 247, 0.15);
-          box-shadow: inset 0 0 8px rgba(187, 154, 247, 0.3);
+          background-color: ${theme.hexToRgba theme.colors.purple "0.15"};
+          box-shadow: inset 0 0 8px ${theme.hexToRgba theme.colors.purple "0.3"};
       }
 
       #battery {
@@ -298,17 +294,17 @@ in
 
       #battery.charging {
           color: ${theme.colors.green};
-          background-color: rgba(0, 255, 153, 0.1);
+          background-color: ${theme.hexToRgba theme.colors.green "0.1"};
       }
 
       #battery.warning:not(.charging) {
           color: ${theme.colors.yellow};
-          background-color: rgba(224, 175, 104, 0.15);
+          background-color: ${theme.hexToRgba theme.colors.yellow "0.15"};
       }
 
       #battery.critical:not(.charging) {
           color: ${theme.colors.red};
-          background-color: rgba(247, 118, 142, 0.2);
+          background-color: ${theme.hexToRgba theme.colors.red "0.2"};
           animation: blink-urgent 1s ease-in-out infinite;
       }
 
@@ -327,8 +323,8 @@ in
       }
 
       #network:hover {
-          background-color: rgba(122, 162, 247, 0.15);
-          box-shadow: inset 0 0 8px rgba(122, 162, 247, 0.3);
+          background-color: ${theme.hexToRgba theme.colors.blue "0.15"};
+          box-shadow: inset 0 0 8px ${theme.hexToRgba theme.colors.blue "0.3"};
       }
 
       #bluetooth {
@@ -344,8 +340,8 @@ in
       }
 
       #bluetooth:hover {
-          background-color: rgba(51, 204, 255, 0.15);
-          box-shadow: inset 0 0 8px rgba(51, 204, 255, 0.3);
+          background-color: ${theme.hexToRgba theme.colors.cyan "0.15"};
+          box-shadow: inset 0 0 8px ${theme.hexToRgba theme.colors.cyan "0.3"};
       }
 
       #pulseaudio {
@@ -357,8 +353,8 @@ in
       }
 
       #pulseaudio:hover {
-          background-color: rgba(125, 207, 255, 0.15);
-          box-shadow: inset 0 0 8px rgba(125, 207, 255, 0.3);
+          background-color: ${theme.hexToRgba theme.colors.lightCyan "0.15"};
+          box-shadow: inset 0 0 8px ${theme.hexToRgba theme.colors.lightCyan "0.3"};
       }
 
       #tray {
@@ -371,7 +367,7 @@ in
 
       #tray > .needs-attention {
           -gtk-icon-effect: highlight;
-          background-color: rgba(247, 118, 142, 0.2);
+          background-color: ${theme.hexToRgba theme.colors.red "0.2"};
       }
     '';
   };

@@ -27,7 +27,7 @@
     ./modules/users.nix
     ./modules/programs.nix
     ./modules/packages.nix
-    ./modules/theme.nix
+    ./modules/fonts.nix
     ./modules/services.nix
   ];
 

@@ -1,9 +1,7 @@
 # Home Manager Configuration
-{ pkgs, inputs, systemVars, claude-code, ... }:
+{ pkgs, inputs, systemVars, theme, claude-code, ... }:
 
 let
-  # Import Tokyo Night theme
-  theme = import ../modules/theme/tokyo-night.nix;
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   
   # Alias for easier access to system variables
@@ -21,7 +19,9 @@ in
     ./programs/hyprpaper.nix
     ./programs/mako.nix
     ./programs/neovim.nix
+    ./programs/vscode.nix
     ./programs/waybar.nix
+    ./programs/wofi.nix
   ];
 
   # Home Manager state - using centralized variables
@@ -44,24 +44,21 @@ in
     ] ++ (with pkgs; [
       # Desktop applications
       firefox                # Web browser
-      vscode                 # Code editor
       discord                # Chat application
       android-studio         # Android Studio
       godot_4                # Godot Engine
       arduino-ide            # Arduino IDE
 
       # Terminal and shell
-      kitty                  # Terminal emulator
       zsh                    # Z shell
       oh-my-zsh              # Zsh framework
 
+      # Development tools
+      nixd                   # Nix language server (for VS Code & Neovim)
+
       # Wayland compositor tools
-      waybar                 # Status bar
       wofi                   # Application launcher
       hyprpaper              # Wallpaper daemon
-      mako                   # Notification daemon
-      hyprlock               # Screen locker
-      hypridle               # Idle daemon
       
       # Wayland utilities
       wl-clipboard           # Clipboard utilities
@@ -82,9 +79,9 @@ in
   programs.spicetify = {
     enable = true;
     
-    # Theme configuration (Tokyo Night style)
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
+    # Theme configuration from palette
+    theme = spicePkgs.themes.${theme.apps.spicetify.theme};
+    colorScheme = theme.apps.spicetify.colorScheme;
 
     # Essential extensions for ad-blocking and functionality
     enabledExtensions = with spicePkgs.extensions; [
@@ -129,7 +126,6 @@ in
       ".envrc"
     ];
   };
-
 
   # Direnv configuration for directory-specific environments
   programs.direnv = {
@@ -192,102 +188,6 @@ in
     Icon=nvim
     Categories=Utility;TextEditor;
     MimeType=text/plain;text/x-log;application/x-shellscript;
-  '';
-
-  # Wofi configuration
-  home.file.".config/wofi/config".text = ''
-    width=600
-    height=400
-    location=center
-    show=drun
-    prompt=Search...
-    filter_rate=100
-    allow_markup=true
-    no_actions=true
-    halign=fill
-    orientation=vertical
-    content_halign=fill
-    insensitive=true
-    allow_images=true
-    image_size=32
-    gtk_dark=true
-  '';
-
-  home.file.".config/wofi/style.css".text = ''
-    * {
-        font-family: "${theme.fonts.monospace}", monospace;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    window {
-        margin: 0px;
-        border: 2px solid ${theme.colors.cyan};
-        background-color: ${theme.colors.background};
-        border-radius: 0px;
-    }
-
-    #input {
-        margin: 8px;
-        padding: 8px 12px;
-        border: 1px solid ${theme.colors.cyan};
-        color: ${theme.colors.foreground};
-        background-color: ${theme.colors.gray2};
-        border-radius: 0px;
-    }
-
-    #input:focus {
-        border: 1px solid ${theme.colors.green};
-        outline: none;
-    }
-
-    #inner-box {
-        margin: 8px;
-        border: none;
-        background-color: ${theme.colors.background};
-    }
-
-    #outer-box {
-        margin: 0px;
-        border: none;
-        background-color: ${theme.colors.background};
-    }
-
-    #scroll {
-        margin: 0px;
-        border: none;
-    }
-
-    #text {
-        margin: 4px;
-        padding: 4px;
-        color: ${theme.colors.foreground};
-    }
-
-    #text:selected {
-        color: ${theme.colors.background};
-    }
-
-    #entry {
-        margin: 2px;
-        padding: 8px;
-        border: 1px solid transparent;
-        background-color: transparent;
-    }
-
-    #entry:selected {
-        border: 1px solid ${theme.colors.cyan};
-        background-color: ${theme.colors.cyan};
-        color: ${theme.colors.background};
-    }
-
-    #entry:hover {
-        background-color: rgba(51, 204, 255, 0.2);
-    }
-
-    #img {
-        margin-right: 8px;
-    }
   '';
 
   # Screenshot utility script with executable permissions

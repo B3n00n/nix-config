@@ -1,10 +1,6 @@
 # Kitty Terminal Emulator Configuration
-{ pkgs, systemVars ? null, ... }:
+{ theme, ... }:
 
-let
-  # Import Tokyo Night theme
-  theme = import ../../modules/theme/tokyo-night.nix;
-in
 {
   programs.kitty = {
     enable = true;
@@ -44,13 +40,13 @@ in
       tab_bar_edge = "bottom";
       tab_bar_style = "powerline";
 
-      # Tokyo Night color scheme
+      # Color scheme from theme
       foreground = theme.colors.foreground;
       background = theme.colors.background;
 
       # Selection colors
       selection_foreground = theme.colors.background;
-      selection_background = theme.colors.cyan;
+      selection_background = theme.colors.primary;
 
       # Cursor colors
       cursor = theme.colors.foreground;
@@ -60,24 +56,24 @@ in
       url_color = theme.colors.blue;
 
       # Terminal colors (16-color palette)
-      color0 = theme.colors.terminal.black;
-      color1 = theme.colors.terminal.red;
-      color2 = theme.colors.terminal.green;
-      color3 = theme.colors.terminal.yellow;
-      color4 = theme.colors.terminal.blue;
-      color5 = theme.colors.terminal.magenta;
-      color6 = theme.colors.terminal.cyan;
-      color7 = theme.colors.terminal.white;
+      color0 = theme.terminal.black;
+      color1 = theme.terminal.red;
+      color2 = theme.terminal.green;
+      color3 = theme.terminal.yellow;
+      color4 = theme.terminal.blue;
+      color5 = theme.terminal.magenta;
+      color6 = theme.terminal.cyan;
+      color7 = theme.terminal.white;
 
       # Bright colors
-      color8 = theme.colors.terminal.brightBlack;
-      color9 = theme.colors.terminal.brightRed;
-      color10 = theme.colors.terminal.brightGreen;
-      color11 = theme.colors.terminal.brightYellow;
-      color12 = theme.colors.terminal.brightBlue;
-      color13 = theme.colors.terminal.brightMagenta;
-      color14 = theme.colors.terminal.brightCyan;
-      color15 = theme.colors.terminal.brightWhite;
+      color8 = theme.terminal.brightBlack;
+      color9 = theme.terminal.brightRed;
+      color10 = theme.terminal.brightGreen;
+      color11 = theme.terminal.brightYellow;
+      color12 = theme.terminal.brightBlue;
+      color13 = theme.terminal.brightMagenta;
+      color14 = theme.terminal.brightCyan;
+      color15 = theme.terminal.brightWhite;
     };
   };
 }

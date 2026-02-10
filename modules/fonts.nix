@@ -1,6 +1,6 @@
-# System-wide theme configuration
+# System-wide font packages
 #
-# Fonts and general theming settings. Cursor theme environment variables
+# Font installation for the system. Cursor theme environment variables
 # are set in Hyprland configuration where they're actually used.
 { pkgs, ... }:
 

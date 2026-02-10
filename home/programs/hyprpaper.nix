@@ -1,18 +1,15 @@
 # Hyprpaper Wallpaper Configuration
-{ systemVars, ... }:
+{ theme, ... }:
 
-let
-  vars = systemVars;
-in
 {
   # Hyprpaper configuration file
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    # Preload wallpapers from centralized path
-    preload = ${vars.paths.wallpaper}
-    
+    # Preload wallpapers from theme
+    preload = ${theme.wallpaper}
+
     # Set wallpaper for all monitors
-    wallpaper = ,${vars.paths.wallpaper}
-    
+    wallpaper = ,${theme.wallpaper}
+
     # Fully disable IPC if not needed
     ipc = off
   '';

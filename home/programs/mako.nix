@@ -1,10 +1,6 @@
-# Mako Notification Daemon - Tokyo Night Theme
-{ pkgs, systemVars ? null, ... }:
+# Mako Notification Daemon
+{ pkgs, theme, ... }:
 
-let
-  # Import Tokyo Night theme
-  theme = import ../../modules/theme/tokyo-night.nix;
-in
 {
   services.mako = {
     enable = true;
@@ -14,10 +10,10 @@ in
       # Font configuration
       font = "${theme.fonts.sansSerif} ${toString theme.fonts.size.normal}";
 
-      # Color scheme - Tokyo Night
-      background-color = theme.colors.gray1;
+      # Color scheme from theme
+      background-color = theme.colors.surface0;
       text-color = theme.colors.foreground;
-      border-color = theme.colors.cyan;
+      border-color = theme.colors.primary;
       progress-color = "over ${theme.colors.green}";
 
       # Border and padding
@@ -48,7 +44,7 @@ in
       default-timeout=3000
 
       [urgency=normal]
-      border-color=${theme.colors.cyan}
+      border-color=${theme.colors.primary}
       default-timeout=5000
 
       [urgency=high]

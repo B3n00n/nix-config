@@ -1,10 +1,6 @@
 # Hyprlock Screen Locker Configuration
-{ systemVars ? null, ... }:
+{ theme, ... }:
 
-let
-  # Import Tokyo Night theme
-  theme = import ../../modules/theme/tokyo-night.nix;
-in
 {
   programs.hyprlock = {
     enable = true;
@@ -63,11 +59,11 @@ in
           dots_size = 0.2;
           dots_spacing = 0.35;
           dots_center = true;
-          outer_color = theme.colors.cyan;
+          outer_color = theme.colors.primary;
           inner_color = theme.colors.background;
           font_color = theme.colors.foreground;
           fade_on_empty = false;
-          placeholder_text = "<span foreground='##565f89'>Enter Password...</span>";
+          placeholder_text = "<span foreground='#${theme.removeHash theme.colors.comment}'>Enter Password...</span>";
           hide_input = false;
           position = "0, -100";
           halign = "center";

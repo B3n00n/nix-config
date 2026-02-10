@@ -1,11 +1,7 @@
 # Hyprland Wayland Compositor Configuration
-{ lib, systemVars, ... }:
+{ systemVars, theme, ... }:
 
 let
-  # Import Tokyo Night theme
-  theme = import ../../modules/theme/tokyo-night.nix;
-  
-  # Alias for easier access
   vars = systemVars;
 in
 {
@@ -64,9 +60,9 @@ in
         gaps_out = 10;
         border_size = 2;
 
-        # Tokyo Night border colors
-        "col.active_border" = "rgba(${lib.removePrefix "#" theme.colors.cyan}ee) rgba(${lib.removePrefix "#" theme.colors.green}ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        # Border colors from theme
+        "col.active_border" = "rgba(${theme.removeHash theme.colors.primary}ee) rgba(${theme.removeHash theme.colors.green}ee) 45deg";
+        "col.inactive_border" = "rgba(${theme.removeHash theme.colors.surface2}aa)";
 
         resize_on_border = false;
         allow_tearing = false;
@@ -83,7 +79,7 @@ in
           enabled = true;
           range = 4;
           render_power = 3;
-          color = "rgba(1a1a1aee)";
+          color = "rgba(${theme.removeHash theme.colors.background}ee)";
         };
 
         blur = {

@@ -36,6 +36,9 @@
       
       # Extract the variables for easy access
       vars = varsModule.config.system.variables;
+
+      # Resolve theme from variables
+      theme = import ./modules/theme { themeName = vars.theme.name; };
     in
     {
       # NixOS configuration for hostname from variables
@@ -55,13 +58,14 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
+              backupFileExtension = "hm-backup";
               
               # User home configuration from variables
               users.${vars.user.username} = import ./home/home.nix;
 
               # Make inputs and system config available to home-manager
               extraSpecialArgs = {
-                inherit inputs;
+                inherit inputs theme;
                 # Pass system variables to home-manager
                 systemVars = vars;
                 # Pass always-up-to-date Claude Code to home-manager

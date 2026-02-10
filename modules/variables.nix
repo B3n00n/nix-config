@@ -34,7 +34,7 @@
 
     # Theming
     theme = {
-      name = "tokyo-night";
+      name = "gruvbox-dark";
       cursorTheme = "Bibata-Modern-Ice";
       cursorSize = 24;
       iconTheme = "Papirus-Dark";
@@ -42,7 +42,6 @@
 
     # Paths
     paths = {
-      wallpaper = "/etc/nixos/assets/wallpapers/tokyonight.jpg";
       screenshots = "~/Pictures";
     };
 
