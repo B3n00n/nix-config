@@ -34,7 +34,7 @@
 
     # Theming
     theme = {
-      name = "tokyo-night";
+      name = "adwaita-dark";
       cursorTheme = "Bibata-Modern-Ice";
       cursorSize = 24;
       iconTheme = "Papirus-Dark";

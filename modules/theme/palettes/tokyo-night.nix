@@ -44,7 +44,7 @@
   wallpaper = "/etc/nixos/assets/wallpapers/tokyonight.jpg";
 
   apps = {
-    neovim    = { colorscheme = "tokyonight-night"; lualine = "tokyonight"; plugin = "tokyonight-nvim"; };
+    neovim    = { colorscheme = "tokyonight-night"; lualine = "tokyonight"; plugin = "tokyonight-nvim"; background = "dark"; };
     spicetify = { theme = "text"; colorScheme = "TokyoNight"; };
     vscode    = { colorTheme = "Tokyo Night"; extension = { publisher = "enkia"; name = "tokyo-night"; }; };
   };

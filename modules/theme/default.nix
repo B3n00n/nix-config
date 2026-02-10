@@ -14,7 +14,8 @@
 let
   palettes = {
     "tokyo-night"     = import ./palettes/tokyo-night.nix;
-    "catppuccin-mocha" = import ./palettes/catppuccin-mocha.nix;
+    "adwaita-dark"     = import ./palettes/adwaita-dark.nix;
+    "adwaita-light"    = import ./palettes/adwaita-light.nix;
     "gruvbox-dark"    = import ./palettes/gruvbox-dark.nix;
   };
 

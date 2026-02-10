@@ -44,7 +44,7 @@
   wallpaper = "/etc/nixos/assets/wallpapers/gruvbox-dark.jpg";
 
   apps = {
-    neovim    = { colorscheme = "gruvbox"; lualine = "gruvbox"; plugin = "gruvbox-nvim"; };
+    neovim    = { colorscheme = "gruvbox"; lualine = "gruvbox"; plugin = "gruvbox-nvim"; background = "dark"; };
     spicetify = { theme = "text"; colorScheme = "Gruvbox"; };
     vscode    = { colorTheme = "Gruvbox Dark Hard"; extension = { publisher = "jdinhlife"; name = "gruvbox"; }; };
   };

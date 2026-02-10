@@ -72,6 +72,7 @@
       -- ========================================
       -- THEME CONFIGURATION
       -- ========================================
+      vim.o.background = "${theme.apps.neovim.background}"
       vim.cmd[[colorscheme ${theme.apps.neovim.colorscheme}]]
 
       -- ========================================
