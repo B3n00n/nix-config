@@ -34,7 +34,7 @@
 
     # Theming
     theme = {
-      name = "gruvbox-dark";
+      name = "tokyo-night";
       cursorTheme = "Bibata-Modern-Ice";
       cursorSize = 24;
       iconTheme = "Papirus-Dark";

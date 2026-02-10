@@ -45,7 +45,7 @@
 
   apps = {
     neovim    = { colorscheme = "gruvbox"; lualine = "gruvbox"; plugin = "gruvbox-nvim"; };
-    spicetify = { theme = "catppuccin"; colorScheme = "mocha"; };
+    spicetify = { theme = "text"; colorScheme = "Gruvbox"; };
     vscode    = { colorTheme = "Gruvbox Dark Hard"; extension = { publisher = "jdinhlife"; name = "gruvbox"; }; };
   };
 }

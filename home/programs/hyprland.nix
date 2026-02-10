@@ -35,8 +35,6 @@ in
 
       # Autostart
       exec-once = [
-        "waybar"
-        "hyprpaper"
         "nm-applet"
         "wl-paste --type text --watch cliphist store"   # Clipboard history
         "wl-paste --type image --watch cliphist store"  # Clipboard images
@@ -180,8 +178,9 @@ in
         # System controls
         "$mainMod, L, exec, hyprlock"
         "$mainMod SHIFT, S, exec, ~/.local/bin/screenshot.sh"
+        "$mainMod SHIFT, T, exec, ~/.local/bin/theme-switcher.sh"
         "$mainMod, C, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
-        "$mainMod SHIFT, W, exec, killall hyprpaper && hyprpaper &"
+        "$mainMod SHIFT, W, exec, systemctl --user restart hyprpaper.service"
 
         # Window management
         "$mainMod, E, movetoworkspace, special:magic"

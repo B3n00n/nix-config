@@ -2,15 +2,13 @@
 { theme, ... }:
 
 {
-  # Hyprpaper configuration file
-  home.file.".config/hypr/hyprpaper.conf".text = ''
-    # Preload wallpapers from theme
-    preload = ${theme.wallpaper}
+  services.hyprpaper = {
+    enable = true;
 
-    # Set wallpaper for all monitors
-    wallpaper = ,${theme.wallpaper}
-
-    # Fully disable IPC if not needed
-    ipc = off
-  '';
+    settings = {
+      preload = [ theme.wallpaper ];
+      wallpaper = [ ",${theme.wallpaper}" ];
+      ipc = "off";
+    };
+  };
 }

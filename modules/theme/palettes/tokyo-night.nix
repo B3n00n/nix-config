@@ -45,7 +45,7 @@
 
   apps = {
     neovim    = { colorscheme = "tokyonight-night"; lualine = "tokyonight"; plugin = "tokyonight-nvim"; };
-    spicetify = { theme = "catppuccin"; colorScheme = "mocha"; };
+    spicetify = { theme = "text"; colorScheme = "TokyoNight"; };
     vscode    = { colorTheme = "Tokyo Night"; extension = { publisher = "enkia"; name = "tokyo-night"; }; };
   };
 }

@@ -19,6 +19,7 @@ in
     ./programs/hyprpaper.nix
     ./programs/mako.nix
     ./programs/neovim.nix
+    ./programs/firefox.nix
     ./programs/vscode.nix
     ./programs/waybar.nix
     ./programs/wofi.nix
@@ -43,7 +44,6 @@ in
       claude-code            # AI coding assistant (always up-to-date from flake)
     ] ++ (with pkgs; [
       # Desktop applications
-      firefox                # Web browser
       discord                # Chat application
       android-studio         # Android Studio
       godot_4                # Godot Engine
@@ -58,7 +58,6 @@ in
 
       # Wayland compositor tools
       wofi                   # Application launcher
-      hyprpaper              # Wallpaper daemon
       
       # Wayland utilities
       wl-clipboard           # Clipboard utilities
@@ -194,6 +193,12 @@ in
   # Screenshots will be saved to Pictures directory from variables
   home.file.".local/bin/screenshot.sh" = {
     source = ./scripts/screenshot.sh;
+    executable = true;
+  };
+
+  # Theme switcher script (wofi picker → rebuild → restart services)
+  home.file.".local/bin/theme-switcher.sh" = {
+    source = ./scripts/theme-switcher.sh;
     executable = true;
   };
 
