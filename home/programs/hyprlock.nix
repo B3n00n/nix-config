@@ -63,7 +63,7 @@
           inner_color = theme.colors.background;
           font_color = theme.colors.foreground;
           fade_on_empty = false;
-          placeholder_text = "<span foreground='#${theme.removeHash theme.colors.comment}'>Enter Password...</span>";
+          placeholder_text = "Enter Password...";
           hide_input = false;
           position = "0, -100";
           halign = "center";
