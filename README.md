@@ -145,7 +145,7 @@ flake.nix resolves palette ──► theme object
 | `Alt + F` | File manager |
 | `Alt + L` | Lock screen |
 | `Alt + W` | Fullscreen |
-| `Alt + ENTER` | Float toggle |
+| `Alt + SPACEBAR` | Float toggle |
 | `Alt + Shift+S` | Screenshot |
 | `Alt + Shift+T` | Theme switcher |
 | `Alt + C` | Clipboard history |
