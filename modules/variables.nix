@@ -34,7 +34,7 @@
 
     # Theming
     theme = {
-      name = "adwaita-dark";
+      name = "gruvbox-dark";
       cursorTheme = "Bibata-Modern-Ice";
       cursorSize = 24;
       iconTheme = "Papirus-Dark";
