@@ -20,12 +20,9 @@
     zip                 # ZIP compression
     p7zip               # 7-Zip support
     unrar               # RAR extraction
-    file-roller         # Archive manager GUI (required for Thunar integration)
+    file-roller         # Archive manager GUI (used by Thunar archive plugin)
 
-    # File management
-    xfce.thunar                   # Lightweight file manager
-    xfce.thunar-archive-plugin    # Archive extraction in Thunar
-    xfce.thunar-volman            # Automatic volume management
+    # File management (Thunar + plugins configured in programs.nix)
     xfce.tumbler                  # Thumbnail service
     xfce.exo                      # Application launcher (for "Open Terminal Here")
     

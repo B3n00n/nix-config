@@ -3,10 +3,7 @@
 
 {
   # Docker virtualization
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-  };
+  virtualisation.docker.enable = true;
 
   # Bluetooth support
   hardware.bluetooth = {
