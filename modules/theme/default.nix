@@ -1,15 +1,16 @@
 # Theme Resolver
 #
-# Selects a palette by name, merges shared defaults, and attaches color utils.
-# Palettes only need to define colors, terminal, wallpaper, and apps —
-# fonts, border, and opacity come from shared defaults (overridable per-palette).
+# Selects a palette by name, deep-merges shared defaults, and attaches color utils.
+# Palettes only need to define what differs from defaults — any field they set
+# (even nested ones like fonts.monospace) overrides just that field.
 #
 # Usage:
-#   theme = import ./modules/theme { themeName = "tokyo-night"; };
+#   theme = import ./modules/theme { themeName = "tokyo-night"; lib = nixpkgs.lib; };
 #   theme.colors.primary              → "#33ccff"
+#   theme.fonts.monospace             → "JetBrains Mono" (or palette override)
 #   theme.hexToRgba "#33ccff" "0.5"   → "rgba(51, 204, 255, 0.5)"
 
-{ themeName }:
+{ themeName, lib }:
 
 let
   palettes = {
@@ -19,7 +20,7 @@ let
 
   colorLib = import ./lib.nix;
 
-  # Shared defaults — palettes can override any of these
+  # Shared defaults — palettes override any field via deep merge
   defaults = {
     fonts = {
       monospace  = "JetBrains Mono";
@@ -45,4 +46,4 @@ let
     or (throw "Unknown theme '${themeName}'. Available: ${builtins.concatStringsSep ", " (builtins.attrNames palettes)}");
 
 in
-  defaults // palette // { inherit (colorLib) hexToRgba hexToRgb removeHash; }
+  (lib.recursiveUpdate defaults palette) // { inherit (colorLib) hexToRgba hexToRgb removeHash; }

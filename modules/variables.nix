@@ -32,12 +32,11 @@
     timezone = "Asia/Jerusalem";
     locale = "en_US.UTF-8";
 
-    # Theming
+    # Theming (GTK/icon theme comes from palette, cursor is user preference)
     theme = {
       name = "dracula";
       cursorTheme = "Bibata-Modern-Ice";
       cursorSize = 24;
-      iconTheme = "Papirus-Dark";
     };
 
     # Paths

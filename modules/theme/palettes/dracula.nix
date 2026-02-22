@@ -3,7 +3,13 @@
 #
 # Only theme-specific values live here.
 # Fonts, border, and opacity inherit from shared defaults in default.nix.
+# Only override the fields that differ — deep merge handles the rest.
 {
+  fonts = {
+    monospace = "Fira Code";
+    terminal  = "Fira Code";
+  };
+
   colors = {
     background = "#282a36";
     foreground = "#f8f8f2";
@@ -47,5 +53,6 @@
     neovim    = { colorscheme = "dracula"; lualine = "dracula"; plugin = "dracula-nvim"; background = "dark"; };
     spicetify = { theme = "text"; colorScheme = "Dracula"; };
     vscode    = { colorTheme = "Dracula"; extension = { publisher = "dracula-theme"; name = "theme-dracula"; }; };
+    gtk       = { themeName = "Dracula"; themePackage = "dracula-theme"; iconName = "Dracula"; iconPackage = "dracula-icon-theme"; };
   };
 }

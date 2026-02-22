@@ -38,7 +38,7 @@
       vars = varsModule.config.system.variables;
 
       # Resolve theme from variables
-      theme = import ./modules/theme { themeName = vars.theme.name; };
+      theme = import ./modules/theme { themeName = vars.theme.name; lib = nixpkgs.lib; };
     in
     {
       # NixOS configuration for hostname from variables

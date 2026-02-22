@@ -22,7 +22,7 @@
       margin = "10";
 
       # Icon configuration
-      icon-path = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
+      icon-path = "${pkgs.${theme.apps.gtk.iconPackage}}/share/icons/${theme.apps.gtk.iconName}";
       max-icon-size = 48;
 
       # Notification behavior

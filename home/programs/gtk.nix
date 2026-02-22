@@ -9,16 +9,22 @@ in
   gtk = {
     enable = true;
 
+    # GTK theme from palette (Dracula, Tokyonight-Dark, etc.)
+    theme = {
+      name = theme.apps.gtk.themeName;
+      package = pkgs.${theme.apps.gtk.themePackage};
+    };
+
     # Font configuration
     font = {
       name = theme.fonts.sansSerif;
       size = theme.fonts.size.normal;
     };
 
-    # Icon theme from centralized variables
+    # Icon theme from palette
     iconTheme = {
-      name = vars.theme.iconTheme;
-      package = pkgs.papirus-icon-theme;
+      name = theme.apps.gtk.iconName;
+      package = pkgs.${theme.apps.gtk.iconPackage};
     };
 
     # Cursor theme from centralized variables
@@ -46,7 +52,7 @@ in
       '';
     };
 
-    # GTK 3 configuration
+    # GTK 3 — color overrides ensure exact palette matching on top of the theme
     gtk3 = {
       extraConfig = {
         gtk-application-prefer-dark-theme = true;
@@ -63,298 +69,32 @@ in
         gtk-decoration-layout = "menu:close";
       };
 
-      # Custom CSS for theme
       extraCss = ''
-        /* GTK Theme - Custom CSS */
-
-        /* Base colors */
+        /* Color overrides — ensures GTK3 apps match our palette exactly */
         @define-color theme_bg_color ${theme.colors.background};
         @define-color theme_fg_color ${theme.colors.foreground};
         @define-color theme_base_color ${theme.colors.surface1};
         @define-color theme_text_color ${theme.colors.foreground};
         @define-color theme_selected_bg_color ${theme.colors.primary};
         @define-color theme_selected_fg_color ${theme.colors.background};
-
-        /* Additional semantic colors */
         @define-color insensitive_bg_color ${theme.colors.surface0};
         @define-color insensitive_fg_color ${theme.colors.comment};
         @define-color borders ${theme.colors.surface2};
         @define-color warning_color ${theme.colors.yellow};
         @define-color error_color ${theme.colors.red};
         @define-color success_color ${theme.colors.green};
-
-        /* Window background */
-        window {
-          background-color: ${theme.colors.background};
-          color: ${theme.colors.foreground};
-        }
-
-        /* Headerbar styling */
-        headerbar {
-          background-color: ${theme.colors.surface0};
-          color: ${theme.colors.foreground};
-          border-bottom: 2px solid ${theme.colors.surface2};
-          box-shadow: none;
-        }
-
-        headerbar:backdrop {
-          background-color: ${theme.colors.background};
-        }
-
-        /* Buttons */
-        button {
-          background-color: ${theme.colors.surface1};
-          color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.surface2};
-          border-radius: ${toString theme.border.radius}px;
-          padding: 6px 12px;
-        }
-
-        button:hover {
-          background-color: ${theme.colors.surface2};
-          border-color: ${theme.colors.primary};
-        }
-
-        button:active,
-        button:checked {
-          background-color: ${theme.colors.primary};
-          color: ${theme.colors.background};
-        }
-
-        button:disabled {
-          background-color: ${theme.colors.surface0};
-          color: ${theme.colors.comment};
-        }
-
-        /* Entry fields (text inputs) */
-        entry {
-          background-color: ${theme.colors.surface1};
-          color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.surface2};
-          border-radius: ${toString theme.border.radius}px;
-          padding: 6px;
-        }
-
-        entry:focus {
-          border-color: ${theme.colors.primary};
-          box-shadow: 0 0 0 1px ${theme.colors.primary};
-        }
-
-        entry:disabled {
-          background-color: ${theme.colors.surface0};
-          color: ${theme.colors.comment};
-        }
-
-        /* Selection and highlighting */
-        selection {
-          background-color: ${theme.colors.selection};
-          color: ${theme.colors.foreground};
-        }
-
-        *:selected {
-          background-color: ${theme.colors.primary};
-          color: ${theme.colors.background};
-        }
-
-        /* Scrollbars */
-        scrollbar {
-          background-color: ${theme.colors.background};
-        }
-
-        scrollbar slider {
-          background-color: ${theme.colors.surface2};
-          border-radius: ${toString theme.border.radius}px;
-          min-width: 12px;
-          min-height: 12px;
-        }
-
-        scrollbar slider:hover {
-          background-color: ${theme.colors.primary};
-        }
-
-        /* Menus */
-        menu,
-        .menu {
-          background-color: ${theme.colors.surface0};
-          color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.surface2};
-          border-radius: ${toString theme.border.radius}px;
-        }
-
-        menuitem {
-          padding: 6px 12px;
-        }
-
-        menuitem:hover {
-          background-color: ${theme.colors.primary};
-          color: ${theme.colors.background};
-        }
-
-        /* Tooltips */
-        tooltip {
-          background-color: ${theme.colors.surface0};
-          color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.primary};
-          border-radius: ${toString theme.border.radius}px;
-          padding: 6px;
-        }
-
-        /* Sidebars (like in Thunar) */
-        .sidebar {
-          background-color: ${theme.colors.surface0};
-          color: ${theme.colors.foreground};
-        }
-
-        .sidebar:selected {
-          background-color: ${theme.colors.primary};
-          color: ${theme.colors.background};
-        }
-
-        /* Notebooks (tabs) */
-        notebook {
-          background-color: ${theme.colors.background};
-        }
-
-        notebook header {
-          background-color: ${theme.colors.surface0};
-          border-bottom: 2px solid ${theme.colors.surface2};
-        }
-
-        notebook tab {
-          background-color: transparent;
-          color: ${theme.colors.comment};
-          padding: 8px 16px;
-          border: none;
-        }
-
-        notebook tab:hover {
-          background-color: ${theme.colors.surface1};
-          color: ${theme.colors.foreground};
-        }
-
-        notebook tab:checked {
-          background-color: ${theme.colors.background};
-          color: ${theme.colors.primary};
-          border-bottom: 2px solid ${theme.colors.primary};
-        }
-
-        /* Treeview (file lists, etc.) */
-        treeview {
-          background-color: ${theme.colors.background};
-          color: ${theme.colors.foreground};
-        }
-
-        treeview:selected {
-          background-color: ${theme.colors.primary};
-          color: ${theme.colors.background};
-        }
-
-        treeview:hover {
-          background-color: ${theme.colors.surface1};
-        }
-
-        /* Checkboxes and radio buttons */
-        checkbutton check,
-        radiobutton radio {
-          background-color: ${theme.colors.surface1};
-          border: 1px solid ${theme.colors.surface2};
-          border-radius: 3px;
-        }
-
-        checkbutton check:checked,
-        radiobutton radio:checked {
-          background-color: ${theme.colors.primary};
-          border-color: ${theme.colors.primary};
-          -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
-          color: ${theme.colors.background};
-        }
-
-        /* Progress bars */
-        progressbar {
-          background-color: ${theme.colors.surface1};
-          border-radius: ${toString theme.border.radius}px;
-        }
-
-        progressbar progress {
-          background-color: ${theme.colors.primary};
-          border-radius: ${toString theme.border.radius}px;
-        }
-
-        /* Switches */
-        switch {
-          background-color: ${theme.colors.surface1};
-          border: 1px solid ${theme.colors.surface2};
-          border-radius: ${toString theme.border.radius}px;
-        }
-
-        switch:checked {
-          background-color: ${theme.colors.primary};
-        }
-
-        switch slider {
-          background-color: ${theme.colors.foreground};
-          border-radius: ${toString theme.border.radius}px;
-        }
-
-        /* Separators */
-        separator {
-          background-color: ${theme.colors.surface2};
-          min-width: 1px;
-          min-height: 1px;
-        }
-
-        /* Popovers */
-        popover {
-          background-color: ${theme.colors.surface0};
-          color: ${theme.colors.foreground};
-          border: 1px solid ${theme.colors.surface2};
-          border-radius: ${toString theme.border.radius}px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* List items */
-        list,
-        .view {
-          background-color: ${theme.colors.background};
-          color: ${theme.colors.foreground};
-        }
-
-        list row:selected,
-        .view:selected {
-          background-color: ${theme.colors.primary};
-          color: ${theme.colors.background};
-        }
-
-        /* Spinbuttons (number inputs) */
-        spinbutton {
-          background-color: ${theme.colors.surface1};
-          border: 1px solid ${theme.colors.surface2};
-          border-radius: ${toString theme.border.radius}px;
-        }
-
-        spinbutton button {
-          background-color: transparent;
-          border: none;
-        }
-
-        spinbutton button:hover {
-          background-color: ${theme.colors.surface2};
-        }
       '';
     };
 
-    # GTK 4 configuration
+    # GTK 4 — color overrides for libadwaita apps
     gtk4 = {
       extraConfig = {
         gtk-application-prefer-dark-theme = true;
         gtk-decoration-layout = "menu:close";
       };
 
-      # Custom CSS for GTK 4 (similar to GTK 3 but with updated selectors)
       extraCss = ''
-        /* GTK 4 Theme - Custom CSS */
-
-        /* Base colors */
+        /* Color overrides — ensures GTK4/libadwaita apps match our palette */
         @define-color theme_bg_color ${theme.colors.background};
         @define-color theme_fg_color ${theme.colors.foreground};
         @define-color accent_bg_color ${theme.colors.primary};
@@ -379,22 +119,17 @@ in
         @define-color error_fg_color ${theme.colors.background};
         @define-color success_bg_color ${theme.colors.green};
         @define-color success_fg_color ${theme.colors.background};
-
-        /* Apply base styling to all windows */
-        window {
-          background-color: ${theme.colors.background};
-          color: ${theme.colors.foreground};
-        }
       '';
     };
   };
 
-  # Qt applications - use GTK theme for consistency
+  # Qt applications - colors come from GTK (which follows our theme),
+  # adwaita-qt provides the widget rendering style (dark/light follows theme)
   qt = {
     enable = true;
     platformTheme.name = "gtk";
     style = {
-      name = "adwaita-dark";
+      name = if theme.apps.neovim.background == "dark" then "adwaita-dark" else "adwaita";
       package = pkgs.adwaita-qt;
     };
   };
