@@ -28,27 +28,17 @@ My NixOS + Hyprland setup. Fully declarative, themed across every component, man
 
 The entire system pulls colors from a single theme palette — Hyprland borders, Waybar, Kitty, Neovim, Firefox UI, GTK apps, Wofi, notifications, lock screen, even Spotify. Change one value and everything follows.
 
-Four palettes included:
+Two palettes included:
 
 | Theme | Accent | Vibe |
 |---|---|---|
 | **Tokyo Night** | Cyan | Cool and dark |
-| **Adwaita Dark** | Blue | Clean GNOME-inspired |
-| **Adwaita Light** | Blue | Light mode done right |
-| **Gruvbox Dark** | Gold | Warm and retro |
-
-Themes are continuously being added.
+| **Dracula** | Purple | Classic and vibrant |
 
 Switching themes is a keybind away — `Alt+Shift+T` opens a picker, selects the palette, rebuilds the system, and restarts services automatically.
 
 ### Tokyo Night
 ![Tokyo Night](assets/theme-display/tokyo-night.png)
-
-### Adwaita Dark
-![Adwaita Dark](assets/theme-display/adwaita-dark.png)
-
-### Gruvbox Dark
-![Gruvbox Dark](assets/theme-display/gruvbox-dark.png)
 
 ## Structure
 
@@ -75,9 +65,7 @@ Switching themes is a keybind away — `Alt+Shift+T` opens a picker, selects the
 │       ├── lib.nix             # Color utilities (hex→rgba, etc.)
 │       └── palettes/
 │           ├── tokyo-night.nix
-│           ├── adwaita-dark.nix
-│           ├── adwaita-light.nix
-│           └── gruvbox-dark.nix
+│           └── dracula.nix
 ├── home/
 │   ├── home.nix                # Home-manager entry
 │   ├── scripts/
