@@ -46,7 +46,7 @@ in
       # Desktop applications
       discord                # Chat application
       android-studio         # Android Studio
-      godot_4                # Godot Engine
+      godot_4_6              # Godot Engine 4.6
       arduino-ide            # Arduino IDE
 
       # Terminal and shell

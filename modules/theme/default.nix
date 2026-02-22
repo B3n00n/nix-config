@@ -16,7 +16,9 @@ let
     "tokyo-night"     = import ./palettes/tokyo-night.nix;
     "adwaita-dark"     = import ./palettes/adwaita-dark.nix;
     "adwaita-light"    = import ./palettes/adwaita-light.nix;
-    "gruvbox-dark"    = import ./palettes/gruvbox-dark.nix;
+    "gruvbox-dark"     = import ./palettes/gruvbox-dark.nix;
+    "dracula"          = import ./palettes/dracula.nix;
+    "catppuccin-mocha" = import ./palettes/catppuccin-mocha.nix;
   };
 
   colorLib = import ./lib.nix;
