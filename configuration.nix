@@ -26,6 +26,7 @@
     ./modules/wayland.nix
     ./modules/users.nix
     ./modules/programs.nix
+    ./modules/nix-ld.nix
     ./modules/packages.nix
     ./modules/fonts.nix
     ./modules/services.nix
