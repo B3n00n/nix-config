@@ -16,4 +16,7 @@
       thunar-volman
     ];
   };
+
+  # nix-ld — provides /lib64/ld-linux-x86-64.so.2 so precompiled binaries just work
+  programs.nix-ld.enable = true;
 }
