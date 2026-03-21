@@ -12,7 +12,7 @@
     git                 # Version control
     gh                  # GitHub CLI
     btop                # Process monitor
-    neofetch            # System information
+    fastfetch            # System information
     tree                # Directory tree visualization
 
     # Archive tools
@@ -29,7 +29,7 @@
     # File type detection and theming
     shared-mime-info              # MIME type database
     papirus-icon-theme            # Icon theme
-    gnome-icon-theme              # Fallback icons
+    adwaita-icon-theme            # GTK fallback icons (required by portal file chooser)
     ffmpegthumbnailer             # Video thumbnails
     bibata-cursors                # Cursor theme
     

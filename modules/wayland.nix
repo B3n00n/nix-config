@@ -13,6 +13,16 @@
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
+  # XDG portal configuration (programs.hyprland already enables portal + hyprland backend)
+  xdg.portal = {
+    xdgOpenUsePortal = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "hyprland" "gtk" ];
+    };
+  };
+
   # Enable polkit for GUI authentication dialogs
   # Required for elevated privilege operations in GUI applications
   security.polkit.enable = true;

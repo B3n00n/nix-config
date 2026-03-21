@@ -13,7 +13,8 @@
   colors = {
     background = "#1a1b26";
     foreground = "#c0caf5";
-    primary    = "#33ccff";
+    primary      = "#33ccff";
+    primaryLight = "#7dcfff";     # Lighter cyan for gradients
 
     red     = "#f7768e";
     orange  = "#ff9e64";

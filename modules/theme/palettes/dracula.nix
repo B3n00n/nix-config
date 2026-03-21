@@ -13,7 +13,8 @@
   colors = {
     background = "#282a36";
     foreground = "#f8f8f2";
-    primary    = "#bd93f9";     # Purple — Dracula's signature accent
+    primary      = "#bd93f9";     # Purple — Dracula's signature accent
+    primaryLight = "#d6acff";     # Lighter purple for gradients
 
     red     = "#ff5555";
     orange  = "#ffb86c";

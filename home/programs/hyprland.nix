@@ -54,7 +54,7 @@ in
         border_size = 2;
 
         # Border colors from theme
-        "col.active_border" = "rgba(${theme.removeHash theme.colors.primary}ee) rgba(${theme.removeHash theme.colors.green}ee) 45deg";
+        "col.active_border" = "rgba(${theme.removeHash theme.colors.primary}ee) rgba(${theme.removeHash theme.colors.primaryLight}ee) 45deg";
         "col.inactive_border" = "rgba(${theme.removeHash theme.colors.surface2}aa)";
 
         resize_on_border = false;
@@ -217,6 +217,10 @@ in
         # Special workspace
         "$mainMod SHIFT, E, togglespecialworkspace, magic"
 
+        # Move workspace to monitor
+        "$mainMod CTRL, left, movecurrentworkspacetomonitor, l"
+        "$mainMod CTRL, right, movecurrentworkspacetomonitor, r"
+
         # Workspace scrolling
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
@@ -253,4 +257,5 @@ in
       ];
     };
   };
+
 }

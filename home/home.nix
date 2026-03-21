@@ -47,7 +47,13 @@ in
       discord                # Chat application
       android-studio         # Android Studio
       godot_4_6              # Godot Engine 4.6
+      (unityhub.override {   # Unity Hub (with Unity 6000 fixes)
+        extraLibs = pkgs': [ pkgs'.harfbuzz ];
+      })
+      plasticscm-client-complete  # Plastic SCM (Unity Version Control)
       arduino-ide            # Arduino IDE
+      anydesk                # Remote desktop
+      drawing                # Simple paint/drawing tool
 
       # Terminal and shell
       zsh                    # Z shell
