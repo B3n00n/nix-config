@@ -94,7 +94,6 @@ in
       hidePodcasts     # Hide podcast section
       shuffle          # Shuffle+ with improved controls
       playlistIcons    # Show icons in playlists
-      lastfm           # Last.fm scrobbling
       fullAppDisplay   # Full app display on song change
     ];
 
