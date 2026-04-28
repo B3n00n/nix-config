@@ -5,11 +5,6 @@
 # Fonts, border, and opacity inherit from shared defaults in default.nix.
 # Only override the fields that differ — deep merge handles the rest.
 {
-  fonts = {
-    monospace = "JetBrains Mono";
-    terminal  = "JetBrains Mono";
-  };
-
   colors = {
     background = "#1a1b26";
     foreground = "#c0caf5";

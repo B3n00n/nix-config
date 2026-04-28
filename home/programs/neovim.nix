@@ -1,3 +1,4 @@
+# Neovim Editor Configuration
 { pkgs, theme, ... }:
 
 {

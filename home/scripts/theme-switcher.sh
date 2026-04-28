@@ -96,6 +96,7 @@ sed -i "/^[[:space:]]*theme = {/,/^[[:space:]]*};/ s/name = \".*\"/name = \"${se
 # Stage the change (flake reads git index, not working tree)
 git -C "$NIXOS_DIR" add "$VARIABLES_FILE"
 
-# Spawn kitty terminal for Phase 2 (rebuild needs sudo password + visible output)
-kitty --title "Theme Switcher - Rebuilding..." -e ~/.local/bin/theme-switcher.sh --rebuild &
+# Spawn a terminal for Phase 2 (rebuild needs sudo password + visible output).
+# $TERMINAL is set by home-manager from systemVars.apps.terminal.
+"${TERMINAL:-kitty}" --title "Theme Switcher - Rebuilding..." -e ~/.local/bin/theme-switcher.sh --rebuild &
 disown

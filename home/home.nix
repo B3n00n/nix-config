@@ -54,10 +54,7 @@ in
       arduino-ide            # Arduino IDE
       anydesk                # Remote desktop
       drawing                # Simple paint/drawing tool
-
-      # Terminal and shell
-      zsh                    # Z shell
-      oh-my-zsh              # Zsh framework
+      protonvpn-gui          # ProtonVPN official GUI client
 
       # Development tools
       nixd                   # Nix language server (for VS Code & Neovim)
@@ -168,7 +165,7 @@ in
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins = [ "git" "sudo" "direnv" ];
+      plugins = [ "git" "sudo" ];
     };
 
     # Custom prompt to show full path from home

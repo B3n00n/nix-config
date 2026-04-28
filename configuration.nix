@@ -18,6 +18,7 @@
 
     # Modular system configuration
     ./modules/nix-settings.nix
+    ./modules/overlays.nix
     ./modules/boot.nix
     ./modules/networking.nix
     ./modules/locale.nix
@@ -31,9 +32,6 @@
     ./modules/fonts.nix
     ./modules/services.nix
   ];
-
-  # Allow proprietary packages (Discord, Spotify, etc.)
-  nixpkgs.config.allowUnfree = true;
 
   # NixOS release version - DO NOT CHANGE
   # This value determines the NixOS release from which the default

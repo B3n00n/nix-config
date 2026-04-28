@@ -1,4 +1,4 @@
-# Nix settings and experimental features
+# Nix daemon settings, garbage collection, and nixpkgs config
 { ... }:
 
 {
@@ -18,4 +18,7 @@
       options = "--delete-older-than 30d";
     };
   };
+
+  # Allow proprietary packages (Discord, Spotify, NVIDIA, etc.)
+  nixpkgs.config.allowUnfree = true;
 }

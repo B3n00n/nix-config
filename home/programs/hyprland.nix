@@ -1,5 +1,5 @@
 # Hyprland Wayland Compositor Configuration
-{ systemVars, theme, ... }:
+{ pkgs, systemVars, theme, ... }:
 
 let
   vars = systemVars;
@@ -33,18 +33,23 @@ in
       "$menu" = vars.apps.launcher;
       "$mainMod" = "ALT";
 
-      # Autostart
+      # Autostart — absolute paths so PATH races at session start can't bite us
       exec-once = [
-        "nm-applet"
-        "wl-paste --type text --watch cliphist store"   # Clipboard history
-        "wl-paste --type image --watch cliphist store"  # Clipboard images
+        "${pkgs.networkmanagerapplet}/bin/nm-applet"
+        "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
+        "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
       ];
 
-      # Environment variables using centralized theme settings
+      # Compositor environment: cursor theme + NVIDIA/Wayland glue.
+      # Set here (not /etc/profile) because greetd execs Hyprland directly
+      # without sourcing a login shell.
       env = [
         "XCURSOR_THEME,${vars.theme.cursorTheme}"
         "XCURSOR_SIZE,${toString vars.theme.cursorSize}"
         "HYPRCURSOR_SIZE,${toString vars.theme.cursorSize}"
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "GBM_BACKEND,nvidia-drm"
       ];
 
       # General settings
@@ -146,12 +151,6 @@ in
 
       # Gestures
       gesture = "3,horizontal,workspace";
-
-      # Device-specific configuration
-      device = {
-        name = "epic-mouse-v1";
-        sensitivity = -0.5;
-      };
 
       # Key bindings
       bind = [

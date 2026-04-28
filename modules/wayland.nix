@@ -3,15 +3,9 @@
 
 {
   # Enable Hyprland Wayland compositor
+  # NVIDIA-specific compositor env lives in home/programs/hyprland.nix so it's
+  # injected into Hyprland directly rather than via /etc/profile.
   programs.hyprland.enable = true;
-
-  # NVIDIA + Wayland environment variables
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    GBM_BACKEND = "nvidia-drm";
-    WLR_NO_HARDWARE_CURSORS = "1";
-  };
 
   # XDG portal configuration (programs.hyprland already enables portal + hyprland backend)
   xdg.portal = {
