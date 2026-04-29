@@ -16,6 +16,10 @@
         # Disable sponsored content
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+
+        # Disable Alt key revealing the menu bar
+        "ui.key.menuAccessKey" = 0;
+        "ui.key.menuAccessKeyFocuses" = false;
       };
 
       userChrome = ''
