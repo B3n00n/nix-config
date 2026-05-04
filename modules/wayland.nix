@@ -7,15 +7,14 @@
   # injected into Hyprland directly rather than via /etc/profile.
   programs.hyprland.enable = true;
 
-  # XDG portal configuration (programs.hyprland already enables portal + hyprland backend)
-  xdg.portal = {
-    xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config = {
-      common.default = [ "gtk" ];
-      hyprland.default = [ "hyprland" "gtk" ];
-    };
-  };
+  # Portal config lives in home-manager (home/programs/hyprland.nix). With
+  # home-manager.useUserPackages, NIX_XDG_DESKTOP_PORTAL_DIR points at the
+  # per-user profile, so portals must be installed there to be discovered.
+  xdg.portal.enable = true;
+
+  # dconf service must run for xdg-desktop-portal-gtk to read color-scheme
+  # and answer org.freedesktop.appearance queries from apps like Firefox.
+  programs.dconf.enable = true;
 
   # Enable polkit for GUI authentication dialogs
   # Required for elevated privilege operations in GUI applications

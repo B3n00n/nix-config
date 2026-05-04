@@ -5,6 +5,8 @@
 # Fonts, border, and opacity inherit from shared defaults in default.nix.
 # Only override the fields that differ — deep merge handles the rest.
 {
+  dark = true;
+
   fonts = {
     monospace = "Fira Code";
     terminal  = "Fira Code";

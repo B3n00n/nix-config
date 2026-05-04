@@ -48,17 +48,9 @@
           background: var(--my-surface0) !important;
         }
 
-        .tabbrowser-tab {
-          color: var(--my-comment) !important;
-        }
-
         .tab-background[selected] {
           background: var(--my-bg) !important;
           border-bottom: 2px solid var(--my-primary) !important;
-        }
-
-        .tabbrowser-tab[selected] {
-          color: var(--my-fg) !important;
         }
 
         .tabbrowser-tab:not([selected]):hover .tab-background {

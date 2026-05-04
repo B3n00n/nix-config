@@ -123,6 +123,13 @@ in
     };
   };
 
+  # Canonical freedesktop signal for "user prefers dark mode".
+  # xdg-desktop-portal-gtk exposes this via org.freedesktop.appearance,
+  # which Firefox, libadwaita, GTK4, Electron, Chromium, etc. all honor.
+  dconf.settings."org/gnome/desktop/interface" = {
+    color-scheme = if theme.dark then "prefer-dark" else "default";
+  };
+
   # Qt applications - colors come from GTK (which follows our theme),
   # adwaita-qt provides the widget rendering style (dark/light follows theme)
   qt = {

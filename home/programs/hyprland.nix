@@ -257,4 +257,14 @@ in
     };
   };
 
+  # gtk portal must be in HM extraPortals (not just system) — HM points
+  # NIX_XDG_DESKTOP_PORTAL_DIR at the per-user profile. Without gtk's
+  # AppChooser impl, OpenURI never registers and URL-open buttons silently fail.
+  xdg.portal = {
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "hyprland" "gtk" ];
+    };
+  };
 }
