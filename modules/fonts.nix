@@ -1,24 +1,15 @@
-# System-wide font packages
-#
-# Font installation for the system. Cursor theme environment variables
-# are set in Hyprland configuration where they're actually used.
 { pkgs, ... }:
-
 {
-  # System-wide fonts
   fonts.packages = with pkgs; [
-    # General purpose fonts
-    noto-fonts              # Sans-serif, serif fonts
-    noto-fonts-cjk-sans     # CJK (Chinese, Japanese, Korean) support
-    noto-fonts-color-emoji  # Color emoji support
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
 
-    # Monospace fonts
-    jetbrains-mono          # Base JetBrains Mono for coding
-    fira-code               # Alternative monospace with ligatures
-    terminus_font           # Bitmap terminal font
+    jetbrains-mono
+    fira-code
+    terminus_font
 
-    # Nerd Fonts
-    nerd-fonts.jetbrains-mono    # JetBrains Mono with icon glyphs
-    nerd-fonts.symbols-only      # Standalone icon symbols
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
   ];
 }

@@ -1,9 +1,4 @@
-# Dracula palette
-# https://draculatheme.com/contribute
-#
-# Only theme-specific values live here.
-# Fonts, border, and opacity inherit from shared defaults in default.nix.
-# Only override the fields that differ — deep merge handles the rest.
+# Dracula — https://draculatheme.com
 {
   dark = true;
 
@@ -13,32 +8,28 @@
   };
 
   colors = {
-    background = "#282a36";
-    foreground = "#f8f8f2";
-    primary      = "#bd93f9";     # Purple — Dracula's signature accent
-    primaryLight = "#d6acff";     # Lighter purple for gradients
+    background   = "#282a36";
+    foreground   = "#f8f8f2";
+    primary      = "#bd93f9";
+    primaryLight = "#d6acff";
 
-    red     = "#ff5555";
-    orange  = "#ffb86c";
-    yellow  = "#f1fa8c";
-    green   = "#50fa7b";
-    cyan    = "#8be9fd";
-    blue    = "#6272a4";        # Comment blue (Dracula has no distinct "blue")
-    purple  = "#bd93f9";
-    magenta = "#ff79c6";        # Pink
+    red    = "#ff5555";
+    yellow = "#f1fa8c";
+    green  = "#50fa7b";
+    cyan   = "#8be9fd";
+    blue   = "#6272a4";        # Dracula has no distinct blue; this is the comment blue.
+    purple = "#bd93f9";
 
-    surface0 = "#21222c";       # Darker than bg
-    surface1 = "#44475a";       # Current line
-    surface2 = "#6272a4";       # Comment color
+    surface0 = "#21222c";
+    surface1 = "#44475a";
+    surface2 = "#6272a4";
 
-    selection  = "#44475a";
     comment    = "#6272a4";
     lightCyan  = "#8be9fd";
     lightGreen = "#50fa7b";
-    darkBlue   = "#6272a4";
   };
 
-  # 16-color terminal palette (differs from UI colors for readability)
+  # 16-color terminal palette (differs from UI colors for readability).
   terminal = {
     black   = "#21222c";  brightBlack   = "#6272a4";
     red     = "#ff5555";  brightRed     = "#ff6e6e";
@@ -50,12 +41,5 @@
     white   = "#f8f8f2";  brightWhite   = "#ffffff";
   };
 
-  wallpaper = "/etc/nixos/assets/wallpapers/dracula.jpg";
-
-  apps = {
-    neovim    = { colorscheme = "dracula"; lualine = "dracula"; plugin = "dracula-nvim"; background = "dark"; };
-    spicetify = { theme = "text"; colorScheme = "Dracula"; };
-    vscode    = { colorTheme = "Dracula"; extension = { publisher = "dracula-theme"; name = "theme-dracula"; }; };
-    gtk       = { themeName = "Dracula"; themePackage = "dracula-theme"; iconName = "Dracula"; iconPackage = "dracula-icon-theme"; };
-  };
+  wallpaper = ../../../assets/wallpapers/dracula.jpg;
 }

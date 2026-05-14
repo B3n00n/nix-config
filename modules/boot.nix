@@ -1,12 +1,5 @@
-# Boot loader configuration
 { ... }:
-
 {
-  boot.loader = {
-    # Use systemd-boot as the EFI boot loader
-    systemd-boot.enable = true;
-
-    # Allow modifying EFI variables (required for systemd-boot)
-    efi.canTouchEfiVariables = true;
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 }

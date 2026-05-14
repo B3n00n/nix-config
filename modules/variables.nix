@@ -1,66 +1,92 @@
-# Centralized system variables and configuration constants
-# 
-# This module provides a single source of truth for all configurable
-# values used throughout the system. Import this module and reference
-# config.system.variables.* to access these values.
+# Centralized, typed system variables.
 #
-# Usage in other modules:
-#   { config, ... }: {
-#     users.users.${config.system.variables.user.username} = { ... };
-#   }
-
 { lib, ... }:
 
+let
+  inherit (lib) mkOption types;
+
+  userType = types.submodule {
+    options = {
+      username = mkOption { type = types.str; };
+      email    = mkOption { type = types.str; };
+    };
+  };
+
+  themeType = types.submodule {
+    options = {
+      name        = mkOption { type = types.str; description = "Palette name under modules/theme/palettes/."; };
+      cursorTheme = mkOption { type = types.str; };
+      cursorSize  = mkOption { type = types.ints.positive; };
+    };
+  };
+
+  monitorsType = types.submodule {
+    options = {
+      laptop    = mkOption { type = types.str; description = "Built-in display (run `hyprctl monitors` to find names)."; };
+      external1 = mkOption { type = types.str; description = "Dock layout: centre monitor."; };
+      external2 = mkOption { type = types.str; description = "Dock layout: left monitor."; };
+    };
+  };
+
+  hardwareType = types.submodule {
+    options.monitors = mkOption { type = monitorsType; };
+  };
+
+  appsType = types.submodule {
+    options = {
+      terminal    = mkOption { type = types.str; };
+      editor      = mkOption { type = types.str; };
+      browser     = mkOption { type = types.str; };
+      fileManager = mkOption { type = types.str; };
+      launcher    = mkOption { type = types.str; };
+    };
+  };
+
+  variablesType = types.submodule {
+    options = {
+      hostname = mkOption { type = types.str; };
+      timezone = mkOption { type = types.str; };
+      locale   = mkOption { type = types.str; };
+      user     = mkOption { type = userType; };
+      theme    = mkOption { type = themeType; };
+      hardware = mkOption { type = hardwareType; };
+      apps     = mkOption { type = appsType; };
+    };
+  };
+in
 {
-  options.system.variables = lib.mkOption {
-    type = lib.types.attrs;
-    description = "Centralized system configuration variables";
-    default = {};
+  options.system.variables = mkOption {
+    type = variablesType;
   };
 
   config.system.variables = {
-    # User configuration
-    user = {
-      username = "benoon";
-      fullName = "benoon";
-      email = "benbahar321@gmail.com";
-      shell = "zsh";
-    };
-
-    # System identification
     hostname = "B3n00n";
     timezone = "Asia/Jerusalem";
-    locale = "en_US.UTF-8";
+    locale   = "en_US.UTF-8";
 
-    # Theming (GTK/icon theme comes from palette, cursor is user preference)
+    user = {
+      username = "benoon";
+      email    = "benbahar321@gmail.com";
+    };
+
     theme = {
-      name = "dracula";
+      name        = "dracula";
       cursorTheme = "Bibata-Modern-Ice";
-      cursorSize = 24;
+      cursorSize  = 24;
     };
 
-    # Paths
-    paths = {
-      screenshots = "~/Pictures";
+    hardware.monitors = {
+      laptop    = "eDP-1";
+      external1 = "DP-3";
+      external2 = "DP-4";
     };
 
-    # Hardware
-    hardware = {
-      # Monitor layout for docking station
-      monitors = {
-        laptop = "eDP-1";
-        external1 = "DP-3";
-        external2 = "DP-4";
-      };
-    };
-
-    # Application defaults
     apps = {
-      terminal = "kitty";
-      editor = "nvim";
-      browser = "firefox";
+      terminal    = "kitty";
+      editor      = "nvim";
+      browser     = "firefox";
       fileManager = "thunar";
-      launcher = "wofi";
+      launcher    = "wofi";
     };
   };
 }

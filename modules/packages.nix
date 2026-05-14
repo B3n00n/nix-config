@@ -1,51 +1,31 @@
-# System-wide package installation
-#
-# Only essential system-level packages should be here.
-# User applications and GUI tools belong in home-manager.
+# System-wide packages. Keep this short — user apps belong in home-manager.
 { pkgs, ... }:
-
 {
   environment.systemPackages = with pkgs; [
-    # Core system utilities
-    neovim              # System editor (also configured in home-manager)
-    wget                # Download utility
-    git                 # Version control
-    gh                  # GitHub CLI
-    btop                # Process monitor
-    fastfetch            # System information
-    tree                # Directory tree visualization
+    # Shell tools
+    neovim wget git gh btop fastfetch tree
 
-    # Archive tools
-    unzip               # ZIP extraction
-    zip                 # ZIP compression
-    p7zip               # 7-Zip support
-    unrar               # RAR extraction
-    file-roller         # Archive manager GUI (used by Thunar archive plugin)
+    # Archives
+    unzip zip p7zip unrar
+    file-roller                   # Thunar archive plugin
 
-    # File management (Thunar + plugins configured in programs.nix)
-    xfce.tumbler                  # Thumbnail service
-    xfce.exo                      # Application launcher (for "Open Terminal Here")
-    
-    # File type detection and theming
-    shared-mime-info              # MIME type database
-    papirus-icon-theme            # Icon theme
-    adwaita-icon-theme            # GTK fallback icons (required by portal file chooser)
-    ffmpegthumbnailer             # Video thumbnails
-    bibata-cursors                # Cursor theme
-    
-    # XDG utilities
-    xdg-utils                     # XDG desktop integration
+    # Thunar
+    xfce.tumbler
+    xfce.exo                      # "Open Terminal Here"
+
+    # File typing + theming
+    shared-mime-info
+    papirus-icon-theme
+    adwaita-icon-theme            # portal-gtk fallback icons
+    ffmpegthumbnailer
+    bibata-cursors
+
+    xdg-utils
 
     # System utilities
-    brightnessctl                 # Brightness control
-    pamixer                       # Audio mixer
-    pavucontrol                   # PulseAudio GUI
-    networkmanagerapplet          # NetworkManager GUI
-    playerctl                     # Media player control
+    brightnessctl pamixer pavucontrol networkmanagerapplet playerctl
 
-    # Bluetooth utilities
-    bluez                         # Bluetooth protocol stack
-    bluez-tools                   # Additional Bluetooth tools
-    blueman                       # Bluetooth manager GUI
+    # Bluetooth
+    bluez bluez-tools blueman
   ];
 }

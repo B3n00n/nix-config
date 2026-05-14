@@ -1,0 +1,9 @@
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background-color: var(--my-bg) !important;
+  }
+
+  .top-site-outer .tile {
+    background-color: var(--my-surface0) !important;
+  }
+}

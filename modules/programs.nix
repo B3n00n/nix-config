@@ -1,14 +1,12 @@
-# Program-specific configurations - OS programs only
 { pkgs, ... }:
-
 {
-  # Zsh - enable as login shell (user config in home-manager)
+  # Enabled as a login shell; user-level config is in home-manager.
   programs.zsh.enable = true;
 
-  # XFCE configuration daemon (required for Thunar preferences)
+  # Required for Thunar to read its preferences.
   programs.xfconf.enable = true;
 
-  # Thunar file manager (must use module for plugin discovery)
+  # Thunar must be enabled at the NixOS level for plugin discovery.
   programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [

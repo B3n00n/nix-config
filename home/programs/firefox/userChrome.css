@@ -1,0 +1,93 @@
+#navigator-toolbox {
+  background: var(--my-bg) !important;
+  border-bottom: none !important;
+}
+
+#TabsToolbar {
+  background: var(--my-surface0) !important;
+}
+
+.tab-background[selected] {
+  background: var(--my-bg) !important;
+  border-bottom: 2px solid var(--my-primary) !important;
+}
+
+.tabbrowser-tab:not([selected]):hover .tab-background {
+  background: var(--my-surface1) !important;
+}
+
+#tabs-newtab-button,
+#new-tab-button {
+  color: var(--my-comment) !important;
+}
+
+#tabs-newtab-button:hover,
+#new-tab-button:hover {
+  color: var(--my-primary) !important;
+}
+
+#nav-bar {
+  background: var(--my-bg) !important;
+  border-top: 1px solid var(--my-surface1) !important;
+}
+
+#urlbar-background {
+  background: var(--my-surface1) !important;
+  border: 1px solid var(--my-surface2) !important;
+}
+
+#urlbar[focused] #urlbar-background {
+  border-color: var(--my-primary) !important;
+}
+
+#urlbar-input {
+  color: var(--my-fg) !important;
+}
+
+.urlbarView {
+  background: var(--my-bg) !important;
+  color: var(--my-fg) !important;
+}
+
+.urlbarView-row[selected],
+.urlbarView-row:hover {
+  background: var(--my-surface1) !important;
+}
+
+#PersonalToolbar {
+  background: var(--my-bg) !important;
+  color: var(--my-fg) !important;
+}
+
+#sidebar-box {
+  background: var(--my-surface0) !important;
+  color: var(--my-fg) !important;
+}
+
+#sidebar-header {
+  background: var(--my-surface0) !important;
+  color: var(--my-fg) !important;
+  border-bottom: 1px solid var(--my-surface1) !important;
+}
+
+.panel-arrowcontent,
+panel,
+panelview {
+  background: var(--my-bg) !important;
+  color: var(--my-fg) !important;
+}
+
+menupopup {
+  --panel-background: var(--my-bg) !important;
+  --panel-color: var(--my-fg) !important;
+}
+
+menuitem:hover,
+menu:hover {
+  background: var(--my-surface1) !important;
+}
+
+.browserContainer>findbar {
+  background: var(--my-bg) !important;
+  color: var(--my-fg) !important;
+}

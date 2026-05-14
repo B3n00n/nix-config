@@ -1,5 +1,9 @@
-# Wofi Application Launcher
-{ theme, ... }:
+# Wofi launcher.
+{ config, ... }:
+
+let
+  theme = config.theme;
+in
 
 {
   home.file.".config/wofi/config".text = ''

@@ -15,11 +15,11 @@ if [[ "${1:-}" == "--rebuild" ]]; then
         echo ""
         echo "Rebuild successful! Restarting services..."
 
-        # Home-manager restart triggers handle this during activation,
-        # but explicit restarts guarantee services pick up the new config.
-        systemctl --user restart hyprpaper.service
-        systemctl --user restart waybar.service
-        systemctl --user restart mako.service
+        # Belt-and-suspenders restart in case HM activation skips them.
+        # `|| true` because some services (mako) are dbus-activated and have no unit.
+        systemctl --user restart hyprpaper.service || true
+        systemctl --user restart waybar.service    || true
+        systemctl --user restart mako.service      || true
 
         notify-send "Theme Switched" "Theme applied successfully!" --urgency=normal
         sleep 3

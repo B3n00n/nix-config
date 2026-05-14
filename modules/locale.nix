@@ -1,26 +1,18 @@
-# Locale and time zone configuration
-{ config, ... }:
+{ config, lib, ... }:
 
+let
+  vars = config.system.variables;
+
+  lcCategories = [
+    "ADDRESS" "IDENTIFICATION" "MEASUREMENT" "MONETARY"
+    "NAME" "NUMERIC" "PAPER" "TELEPHONE" "TIME"
+  ];
+in
 {
-  # Time zone from centralized variables
-  time.timeZone = config.system.variables.timezone;
+  time.timeZone = vars.timezone;
 
-  # Internationalization settings
   i18n = {
-    # Default system locale from centralized variables
-    defaultLocale = config.system.variables.locale;
-
-    # Additional locale settings for specific categories
-    extraLocaleSettings = {
-      LC_ADDRESS = config.system.variables.locale;
-      LC_IDENTIFICATION = config.system.variables.locale;
-      LC_MEASUREMENT = config.system.variables.locale;
-      LC_MONETARY = config.system.variables.locale;
-      LC_NAME = config.system.variables.locale;
-      LC_NUMERIC = config.system.variables.locale;
-      LC_PAPER = config.system.variables.locale;
-      LC_TELEPHONE = config.system.variables.locale;
-      LC_TIME = config.system.variables.locale;
-    };
+    defaultLocale = vars.locale;
+    extraLocaleSettings = lib.genAttrs (map (c: "LC_${c}") lcCategories) (_: vars.locale);
   };
 }

@@ -1,13 +1,6 @@
-# Nixpkgs overlays
-#
-# Drop-in fixes for upstream packages. Add new overlays as separate
-# attribute branches inside `nixpkgs.overlays`.
 { ... }:
-
 {
   nixpkgs.overlays = [
-    # Plastic SCM: upstream republishes .deb files without bumping versions,
-    # which invalidates the hashes pinned in nixpkgs. Refresh them here.
     (final: prev: {
       plasticscm-theme = prev.plasticscm-theme.overrideAttrs (old: {
         src = prev.fetchurl {
