@@ -1,164 +1,121 @@
 # nix-config
 
-My NixOS + Hyprland setup. Fully declarative, themed across every component, managed with flakes.
+My NixOS + Hyprland setup. Flake-based, themed end-to-end from a single palette file.
 
 ![NixOS](https://img.shields.io/badge/NixOS-25.11-blue?logo=nixos&logoColor=white)
 ![Hyprland](https://img.shields.io/badge/WM-Hyprland-cyan)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## What's in here
+## Stack
 
-| Component | Choice |
-|---|---|
-| OS | NixOS 25.11 (Flakes) |
-| Window Manager | Hyprland |
-| Terminal | Kitty |
-| Shell | Zsh + Oh-My-Zsh |
-| Editor | VSC, Neovim (LSP, Treesitter, Telescope) |
-| Bar | Waybar |
-| Launcher | Wofi |
-| Browser | Firefox (custom CSS) |
-| Notifications | Mako |
-| Lock Screen | Hyprlock |
-| File Manager | Thunar |
-| Audio | PipeWire |
-| GPU | NVIDIA (open-source, Wayland) |
+| Component      | Choice                                  |
+|----------------|-----------------------------------------|
+| OS             | NixOS 25.11 (flakes)                    |
+| WM             | Hyprland                                |
+| Bar / launcher | Waybar / Wofi                           |
+| Terminal       | Kitty                                   |
+| Shell          | Zsh + Oh-My-Zsh                         |
+| Editor         | Neovim (LSP, Treesitter, Telescope), VS Code |
+| Browser        | Firefox (themed via userChrome)         |
+| Lock / idle    | Hyprlock + hypridle                     |
+| Notifications  | Mako                                    |
+| File manager   | Thunar                                  |
+| Audio          | PipeWire                                |
+| GPU            | NVIDIA (open kernel module, Wayland)    |
 
-## Themes
+## Theming
 
-The entire system pulls colors from a single theme palette — Hyprland borders, Waybar, Kitty, Neovim, Firefox UI, GTK apps, Wofi, notifications, lock screen, even Spotify. Change one value and everything follows.
+One palette drives every themed surface: Hyprland borders, Waybar, Kitty,
+Neovim, Firefox chrome, GTK 3/4, Qt, Wofi, Mako, Hyprlock, Spotify (Spicetify),
+VS Code, and the wallpaper. Change `theme.name` in `modules/variables.nix` and
+the whole system follows.
 
-Two palettes included:
+Two palettes ship: **Dracula** (purple) and **Tokyo Night** (cyan). Add a new
+one by dropping a file in `modules/theme/palettes/` and an entry in
+`modules/theme/integrations.nix`. Both files are schema-validated at eval —
+missing fields fail the build.
 
-| Theme | Accent | Vibe |
-|---|---|---|
-| **Tokyo Night** | Cyan | Cool and dark |
-| **Dracula** | Purple | Classic and vibrant |
+`Alt+Shift+T` opens a Wofi picker that rewrites `variables.nix`, stages it
+(the flake reads from the git index), and rebuilds.
 
-Switching themes is a keybind away — `Alt+Shift+T` opens a picker, selects the palette, rebuilds the system, and restarts services automatically.
-
-### Tokyo Night
 ![Tokyo Night](assets/theme-display/tokyo-night.png)
 
-## Structure
+## Layout
 
 ```
-.
-├── flake.nix                   # Entry point
-├── configuration.nix           # System-level imports
-├── modules/
-│   ├── variables.nix           # Single source of truth
-│   ├── boot.nix
-│   ├── networking.nix
-│   ├── wayland.nix             # Hyprland + greetd + NVIDIA env
-│   ├── nvidia.nix
-│   ├── audio.nix               # PipeWire
-│   ├── packages.nix
-│   ├── programs.nix            # Zsh config
-│   ├── services.nix            # Docker, Bluetooth, USB
-│   ├── fonts.nix
-│   ├── users.nix
-│   ├── locale.nix
-│   ├── nix-settings.nix
-│   └── theme/
-│       ├── default.nix         # Theme resolver + shared defaults
-│       ├── lib.nix             # Color utilities (hex→rgba, etc.)
-│       └── palettes/
-│           ├── tokyo-night.nix
-│           └── dracula.nix
-├── home/
-│   ├── home.nix                # Home-manager entry
-│   ├── scripts/
-│   │   ├── theme-switcher.sh
-│   │   ├── screenshot.sh
-│   │   └── power-menu.sh
-│   └── programs/
-│       ├── hyprland.nix
-│       ├── kitty.nix
-│       ├── neovim.nix
-│       ├── waybar.nix
-│       ├── wofi.nix
-│       ├── firefox.nix         # Custom userChrome/userContent
-│       ├── hyprlock.nix
-│       ├── hypridle.nix
-│       ├── hyprpaper.nix
-│       ├── mako.nix
-│       ├── gtk.nix             # GTK 2/3/4 theming
-│       └── vscode.nix
-└── assets/
-    └── wallpapers/
+flake.nix                       # inputs + nixosSystem
+configuration.nix               # system imports
+hardware-configuration.nix
+modules/
+├── variables.nix               # typed, single source of truth
+├── theme.nix                   # exposes `config.theme` to NixOS + HM
+├── theme/
+│   ├── default.nix             # palette resolver
+│   ├── types.nix               # palette + integration schemas
+│   ├── lib.nix                 # hexToRgba, removeHash
+│   ├── integrations.nix        # per-theme app config (vscode, neovim, …)
+│   └── palettes/{dracula,tokyo-night}.nix
+├── boot.nix  networking.nix  locale.nix
+├── audio.nix  nvidia.nix  wayland.nix
+├── users.nix  programs.nix  services.nix
+├── packages.nix  fonts.nix
+├── nix-settings.nix  nix-ld.nix  overlays.nix
+home/
+├── home.nix                    # home-manager entry
+├── xdg.nix                     # mimeapps + .desktop for nvim
+├── templates.nix               # Thunar "Create Document" templates
+├── scripts.nix                 # installs scripts to ~/.local/bin
+├── scripts/{theme-switcher,screenshot,power-menu}.sh
+└── programs/
+    ├── hyprland/{default,bindings}.nix
+    ├── waybar/{default.nix,style.css}
+    ├── firefox/{default.nix,userChrome.css,userContent.css}
+    ├── neovim/{default.nix,init.lua}
+    ├── kitty.nix  mako.nix  wofi.nix
+    ├── hyprlock.nix  hypridle.nix  hyprpaper.nix
+    ├── gtk.nix  vscode.nix  spicetify.nix
+    ├── git.nix  zsh.nix  direnv.nix
+assets/{wallpapers,theme-display}/
 ```
 
-## How theming works
+## Keybinds (mod = Alt)
 
-All configuration values live in `modules/variables.nix`. The active theme name points to a palette file in `modules/theme/palettes/`. At build time, `flake.nix` resolves the palette and passes it as `theme` to every home-manager module through `extraSpecialArgs`.
+| Key                | Action                       |
+|--------------------|------------------------------|
+| `mod + Return`     | Terminal                     |
+| `mod + Q`          | Kill window                  |
+| `mod + B/D/V/S`    | Firefox / Discord / VS Code / Spotify |
+| `mod + F`          | File manager                 |
+| `mod + \`          | App launcher                 |
+| `mod + L`          | Lock screen                  |
+| `mod + W`          | Fullscreen                   |
+| `mod + P` / `Space`| Float toggle                 |
+| `mod + Shift + S`  | Screenshot (area)            |
+| `mod + Shift + T`  | Theme switcher               |
+| `mod + C`          | Clipboard history            |
+| `mod + 1-0`        | Switch workspace             |
+| `mod + Shift + 1-0`| Move window to workspace     |
+| `mod + Arrows`     | Focus direction              |
+| `mod + Ctrl + ←/→` | Move workspace to monitor    |
+| `Win + Space`      | Cycle keyboard layout (us/il) |
 
-Each palette defines:
-- **Colors** — background, foreground, primary accent, surface levels, semantic colors
-- **Terminal colors** — Full 16-color palette
-- **App configs** — Neovim colorscheme, Spicetify theme, VS Code theme
-- **Wallpaper** — Per-theme wallpaper path
+## Monitors
 
-Color utility functions (`hexToRgba`, `hexToRgb`, `removeHash`) handle conversion for CSS generation in Waybar, GTK, and Firefox configs.
-
-```
-variables.nix (theme.name = "tokyo-night")
-       │
-       ▼
-flake.nix resolves palette ──► theme object
-       │
-       ├── hyprland.nix    (border colors, gaps)
-       ├── waybar.nix      (bar styling, module colors)
-       ├── kitty.nix       (terminal colors)
-       ├── neovim.nix      (colorscheme, statusline)
-       ├── firefox.nix     (userChrome CSS)
-       ├── gtk.nix         (GTK 2/3/4 CSS)
-       ├── wofi.nix        (launcher styling)
-       ├── mako.nix        (notification colors)
-       ├── hyprlock.nix    (lock screen styling)
-       └── hyprpaper.nix   (wallpaper)
-```
-
-## Keybinds
-
-| Key | Action |
-|---|---|
-| `Alt + Return` | Terminal |
-| `Alt + Q` | Kill window |
-| `Alt + B` | Firefox |
-| `Alt + D` | Discord |
-| `Alt + V` | VS Code |
-| `Alt + S` | Spotify |
-| `Alt + \` | App launcher |
-| `Alt + F` | File manager |
-| `Alt + L` | Lock screen |
-| `Alt + W` | Fullscreen |
-| `Alt + SPACEBAR` | Float toggle |
-| `Alt + Shift+S` | Screenshot |
-| `Alt + Shift+T` | Theme switcher |
-| `Alt + C` | Clipboard history |
-| `Alt + 1-0` | Workspaces |
-| `Alt + Shift+1-0` | Move to workspace |
-| `Alt + Arrows` | Focus direction |
-
-## Monitor setup
-
-Triple-monitor layout with a docking station:
+Docked layout, set in `modules/variables.nix → hardware.monitors`:
 
 ```
 ┌──────────┐ ┌──────────┐ ┌──────────┐
-│ External2 │ │ External1 │ │  Laptop   │
-│  DP-4     │ │  DP-3     │ │  eDP-1    │
-│ 1080@165  │ │ 1080@165  │ │           │
+│ external2│ │ external1│ │  laptop  │
+│  DP-4    │ │  DP-3    │ │  eDP-1   │
+│ 1080@165 │ │ 1080@165 │ │          │
 └──────────┘ └──────────┘ └──────────┘
-              (primary)
 ```
 
-## Usage
+Run `hyprctl monitors` to find your output names if cloning this.
 
-Clone and rebuild:
+## Build
 
-```bash
+```sh
 git clone https://github.com/B3n00n/nix-config.git /etc/nixos
 sudo nixos-rebuild switch --flake /etc/nixos
 ```
