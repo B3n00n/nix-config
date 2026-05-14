@@ -12,7 +12,7 @@
       colorScheme = "Dracula";
     };
     vscode = {
-      colorTheme = "Dracula";
+      colorTheme = "Dracula Theme";
       extension  = pkgs.vscode-extensions.dracula-theme.theme-dracula;
     };
     gtk = {
