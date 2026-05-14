@@ -9,7 +9,10 @@
     # Enable NetworkManager for easy network management
     networkmanager.enable = true;
 
-    # Open ports for Arceus (TCP server, HTTP server, Alakazam API)
-    firewall.allowedTCPPorts = [ 43571 43572 43573 ];
+    # TCP
+    firewall.allowedTCPPorts = [ 43571 43572 43573 43555 8000 8080 ];
+
+    # UDP
+    firewall.allowedUDPPorts = [ 6454 7777 ];
   };
 }

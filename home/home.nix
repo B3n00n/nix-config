@@ -56,6 +56,7 @@ in
       drawing                # Simple paint/drawing tool
       protonvpn-gui          # ProtonVPN official GUI client
       pokemmo-installer      # PokeMMO launcher
+      tiled                  # Map Editor
 
       # Development tools
       nixd                   # Nix language server (for VS Code & Neovim)
