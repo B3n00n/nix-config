@@ -2,7 +2,7 @@
 
 let
   theme = config.theme;
-  initLua = builtins.replaceStrings
+  luaConfig = builtins.replaceStrings
     [ "@COLORSCHEME@" "@LUALINE@" "@BACKGROUND@" ]
     [
       theme.apps.neovim.colorscheme
@@ -49,7 +49,10 @@ in
       indent-blankline-nvim
     ];
 
-    extraLuaConfig = initLua;
+    initLua = luaConfig;
+
+    withRuby = false;
+    withPython3 = false;
 
     extraPackages = with pkgs; [
       ripgrep      # telescope live_grep

@@ -10,6 +10,7 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    configType = "hyprlang";
 
     settings = {
       monitor = [
@@ -103,16 +104,12 @@ in
         ];
       };
 
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
-
-      master.new_status = "master";
+      dwindle.preserve_split = true;
 
       misc = {
         force_default_wallpaper = 0;
         disable_hyprland_logo = true;
+        disable_splash_rendering = true;
       };
 
       input = {

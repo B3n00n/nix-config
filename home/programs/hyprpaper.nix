@@ -10,9 +10,13 @@ in
     enable = true;
 
     settings = {
-      preload   = [ wallpaperPath ];
-      wallpaper = [ ",${wallpaperPath}" ];
-      ipc = "off";
+      ipc    = false;
+      splash = false;
+
+      wallpaper = {
+        monitor = "*";
+        path    = wallpaperPath;
+      };
     };
   };
 }

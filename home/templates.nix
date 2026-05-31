@@ -1,22 +1,18 @@
 # Thunar "Create Document" templates.
-{ pkgs, lib, ... }:
+{ lib, pkgs, ... }:
 
 let
   templates = {
-    "Empty.txt" = "\n";
-    "Document.md" = "\n";
-    "Script.sh" = ''
+    "Empty.txt"    = { text = "\n"; };
+    "Document.md"  = { text = "\n"; };
+    "Data.json"    = { text = "{\n\n}\n"; };
+    "Module.nix"   = { text = "{ config, lib, pkgs, ... }:\n{\n\n}\n"; };
+    "Script.sh"    = { executable = true; text = ''
       #!/usr/bin/env bash
       set -euo pipefail
 
-    '';
-    "Module.nix" = ''
-      { config, lib, pkgs, ... }:
-      {
-
-      }
-    '';
-    "Script.py" = ''
+    ''; };
+    "Script.py"    = { executable = true; text = ''
       #!/usr/bin/env python3
 
       def main() -> None:
@@ -25,22 +21,17 @@ let
 
       if __name__ == "__main__":
           main()
-    '';
-    "Data.json" = ''
-      {
+    ''; };
+  };
 
-      }
-    '';
+  mkTemplate = name: { text, executable ? false }: {
+    name = "Templates/${name}";
+    value = {
+      source = pkgs.writeText name text;
+      inherit executable;
+    };
   };
 in
 {
-  home.activation.thunarTemplates = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-    lib.concatStringsSep "\n" (
-      [ "run install -dm755 $HOME/Templates" ]
-      ++ lib.mapAttrsToList (name: content:
-        "run install -m644 ${pkgs.writeText name content} $HOME/Templates/${name}"
-      ) templates
-      ++ [ "run chmod +x $HOME/Templates/Script.sh $HOME/Templates/Script.py" ]
-    )
-  );
+  home.file = lib.mapAttrs' mkTemplate templates;
 }

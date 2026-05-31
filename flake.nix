@@ -2,10 +2,10 @@
   description = "B3n00n's NixOS — Hyprland on NVIDIA";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,6 +33,8 @@
         modules = [
           ./configuration.nix
 
+          { nixpkgs.overlays = [ (_: _: { inherit (claude-code-nix.packages.${system}) claude-code; }) ]; }
+
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -42,10 +44,7 @@
 
               users.${vars.user.username} = import ./home/home.nix;
 
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit (claude-code-nix.packages.${system}) claude-code;
-              };
+              extraSpecialArgs = { inherit inputs; };
             };
           }
         ];

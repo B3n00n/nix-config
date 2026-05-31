@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, claude-code, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   vars = config.system.variables;
@@ -36,33 +36,38 @@ in
     username = vars.user.username;
     homeDirectory = "/home/${vars.user.username}";
 
-    # Don't change. See the HM release notes before bumping.
-    stateVersion = "25.11";
+    stateVersion = "26.05";
 
-    packages = [
+    packages = with pkgs; [
+      # CLI
       claude-code
-    ] ++ (with pkgs; [
-      discord
-      android-studio
-      godot_4_6
-      (unityhub.override { extraLibs = pkgs': [ pkgs'.harfbuzz ]; })  # Unity 6000 fix
-      plasticscm-client-complete
-      arduino-ide
-      anydesk
-      drawing
-      protonvpn-gui
-      pokemmo-installer
-      tiled
-
       nixd
 
-      wofi
-      wl-clipboard
+      # Comms / media
+      discord
+
+      # Dev
+      android-studio
+      arduino-ide
+      godot_4_6
+      plasticscm-client-complete
+      (unityhub.override { extraLibs = pkgs': [ pkgs'.harfbuzz ]; })  # Unity 6000 fix
+      tiled
+
+      # Utilities
+      anydesk
+      drawing
+      pokemmo-installer
+      proton-vpn
+
+      # Wayland tooling
       cliphist
       grim
-      slurp
       imv
-    ]);
+      slurp
+      wl-clipboard
+      wofi
+    ];
 
     # EDITOR comes from programs.neovim.defaultEditor.
     sessionVariables.TERMINAL = vars.apps.terminal;

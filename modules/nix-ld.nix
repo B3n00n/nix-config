@@ -4,8 +4,8 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      xorg.libX11 xorg.libXcursor xorg.libXrandr xorg.libXinerama
-      xorg.libXi xorg.libXext xorg.libXfixes
+      libx11 libxcursor libxrandr libxinerama
+      libxi libxext libxfixes
       wayland libxkbcommon libdecor
 
       libGL vulkan-loader

@@ -33,8 +33,7 @@ in
       # Window management
       "${mod}, E, movetoworkspace, special:magic"
       "${mod}, W, fullscreen, 1"
-      "${mod}, P, togglefloating,"
-      "${mod}, T, togglesplit,"
+      "${mod}, T, layoutmsg, togglesplit"
       "${mod}, SPACE, togglefloating,"
 
       # Focus movement
@@ -82,8 +81,8 @@ in
     ];
 
     windowrule = [
-      "suppressevent maximize, class:.*"
-      "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+      "match:class .*, suppress_event maximize"
+      "match:class ^$, match:title ^$, match:xwayland 1, match:float 1, match:fullscreen 0, match:pin 0, no_focus 1"
     ];
   };
 }

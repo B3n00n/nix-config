@@ -7,7 +7,6 @@
     ./modules/theme.nix
 
     ./modules/nix-settings.nix
-    ./modules/overlays.nix
     ./modules/boot.nix
     ./modules/networking.nix
     ./modules/locale.nix

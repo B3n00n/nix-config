@@ -10,8 +10,8 @@
     file-roller                   # Thunar archive plugin
 
     # Thunar
-    xfce.tumbler
-    xfce.exo                      # "Open Terminal Here"
+    tumbler
+    xfce4-exo                     # "Open Terminal Here"
 
     # File typing + theming
     shared-mime-info
