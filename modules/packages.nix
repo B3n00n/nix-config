@@ -25,6 +25,9 @@
     # System utilities
     brightnessctl pamixer pavucontrol networkmanagerapplet playerctl
 
+    # Media
+    mpv
+
     # Bluetooth
     bluez bluez-tools blueman
   ];

@@ -10,6 +10,23 @@ let
     "text/x-log"
     "application/x-shellscript"
   ];
+
+  mpvMimeTypes = [
+    "audio/mpeg"
+    "audio/wav"
+    "audio/x-wav"
+    "audio/flac"
+    "audio/ogg"
+    "audio/mp4"
+    "audio/aac"
+    "audio/opus"
+    "audio/webm"
+    "video/mp4"
+    "video/x-matroska"
+    "video/webm"
+    "video/quicktime"
+    "video/x-msvideo"
+  ];
 in
 {
   # Thunar's "Open Terminal Here" reads this.
@@ -19,7 +36,9 @@ in
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = lib.genAttrs nvimMimeTypes (_: [ "nvim.desktop" ]);
+    defaultApplications =
+      lib.genAttrs nvimMimeTypes (_: [ "nvim.desktop" ])
+      // lib.genAttrs mpvMimeTypes (_: [ "mpv.desktop" ]);
   };
 
   # Custom launcher so GUI "Open With → Neovim" gets a usable editor.
