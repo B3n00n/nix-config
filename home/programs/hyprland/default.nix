@@ -3,6 +3,19 @@
 let
   vars  = config.system.variables;
   theme = config.theme;
+
+  hyprctl = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl";
+  wallpaperPath = toString theme.wallpaper;
+  setWallpaper = pkgs.writeShellScript "set-wallpaper" ''
+    for _ in $(seq 1 40); do
+      if ${hyprctl} hyprpaper listactive 2>/dev/null | grep -qF "${wallpaperPath}"; then
+        exit 0
+      fi
+      ${hyprctl} hyprpaper preload "${wallpaperPath}" 2>/dev/null || true
+      ${hyprctl} hyprpaper wallpaper ",${wallpaperPath}" 2>/dev/null || true
+      sleep 0.5
+    done
+  '';
 in
 {
   imports = [ ./bindings.nix ];
@@ -27,6 +40,7 @@ in
       "$mainMod"     = "ALT";
 
       exec-once = [
+        "${setWallpaper}"
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
         "${pkgs.wl-clipboard}/bin/wl-paste --type text  --watch ${pkgs.cliphist}/bin/cliphist store"
         "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
