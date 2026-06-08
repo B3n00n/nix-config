@@ -3,8 +3,6 @@
 let
   vars = config.system.variables;
 
-  # MIME types Neovim should own by default. Used for both the mimeApps
-  # mapping and the .desktop MimeType field.
   nvimMimeTypes = [
     "text/plain"
     "text/x-log"
@@ -27,9 +25,28 @@ let
     "video/quicktime"
     "video/x-msvideo"
   ];
+
+  pdfApp = "org.pwmt.zathura-pdf-mupdf.desktop";
+
+  officeApps =
+    lib.genAttrs [
+      "application/msword"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "application/vnd.oasis.opendocument.text"
+      "application/rtf"
+    ] (_: [ "writer.desktop" ])
+    // lib.genAttrs [
+      "application/vnd.ms-excel"
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      "application/vnd.oasis.opendocument.spreadsheet"
+    ] (_: [ "calc.desktop" ])
+    // lib.genAttrs [
+      "application/vnd.ms-powerpoint"
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      "application/vnd.oasis.opendocument.presentation"
+    ] (_: [ "impress.desktop" ]);
 in
 {
-  # Thunar's "Open Terminal Here" reads this.
   xdg.configFile."xfce4/helpers.rc".text = ''
     TerminalEmulator=${vars.apps.terminal}
   '';
@@ -38,7 +55,11 @@ in
     enable = true;
     defaultApplications =
       lib.genAttrs nvimMimeTypes (_: [ "nvim.desktop" ])
-      // lib.genAttrs mpvMimeTypes (_: [ "mpv.desktop" ]);
+      // lib.genAttrs mpvMimeTypes (_: [ "mpv.desktop" ])
+      // officeApps
+      // {
+        "application/pdf" = [ pdfApp ];
+      };
   };
 
   # Custom launcher so GUI "Open With → Neovim" gets a usable editor.

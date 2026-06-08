@@ -59,9 +59,10 @@ require('lualine').setup({
 })
 
 -- ─── treesitter ───────────────────────────────────────────────────────
-require('nvim-treesitter.configs').setup({
-  highlight = { enable = true, additional_vim_regex_highlighting = false },
-  indent = { enable = true },
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
 })
 
 -- ─── telescope ────────────────────────────────────────────────────────

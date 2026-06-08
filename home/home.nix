@@ -30,6 +30,7 @@ in
     ./programs/vscode.nix
     ./programs/waybar
     ./programs/wofi.nix
+    ./programs/zathura.nix
     ./programs/zsh.nix
 
     ./xdg.nix
@@ -61,6 +62,9 @@ in
       plasticscm-client-complete
       (unityhub.override { extraLibs = pkgs': [ pkgs'.harfbuzz ]; }) # Unity 6000 fix
       tiled
+
+      # Office
+      libreoffice
 
       # Utilities
       anydesk

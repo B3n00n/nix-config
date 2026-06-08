@@ -69,7 +69,7 @@ in
     };
 
     theme = {
-      name        = "dracula";
+      name        = "tokyo-night";
       cursorTheme = "Bibata-Modern-Ice";
       cursorSize  = 24;
     };
