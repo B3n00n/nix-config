@@ -6,8 +6,6 @@ in
 {
   programs.hyprland.enable = true;
 
-  xdg.portal.enable = true;
-
   programs.dconf.enable = true;
 
   security.polkit.enable = true;

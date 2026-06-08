@@ -23,12 +23,9 @@
     xdg-utils
 
     # System utilities
-    brightnessctl pamixer pavucontrol networkmanagerapplet playerctl
-
-    # Media
-    mpv
+    brightnessctl pamixer pavucontrol networkmanagerapplet
 
     # Bluetooth
-    bluez bluez-tools blueman
+    bluez-tools
   ];
 }

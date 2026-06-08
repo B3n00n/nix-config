@@ -26,8 +26,8 @@ in
 
       # System
       "${mod}, L, exec, hyprlock"
-      "${mod} SHIFT, S, exec, ~/.local/bin/screenshot.sh"
-      "${mod} SHIFT, T, exec, ~/.local/bin/theme-switcher.sh"
+      "${mod} SHIFT, S, exec, screenshot"
+      "${mod} SHIFT, T, exec, theme-switcher"
       "${mod}, C, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
       # Window management

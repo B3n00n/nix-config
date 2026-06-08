@@ -7,7 +7,7 @@ let
     [
       theme.apps.neovim.colorscheme
       theme.apps.neovim.lualine
-      theme.apps.neovim.background
+      (if theme.dark then "dark" else "light")
     ]
     (builtins.readFile ./init.lua);
 in

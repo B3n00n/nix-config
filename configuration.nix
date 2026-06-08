@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
 
     ./modules/variables.nix
-    ./modules/theme.nix
 
     ./modules/nix-settings.nix
     ./modules/boot.nix

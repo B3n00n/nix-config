@@ -35,7 +35,6 @@ let
   appsType = types.submodule {
     options = {
       terminal    = mkOption { type = types.str; };
-      editor      = mkOption { type = types.str; };
       browser     = mkOption { type = types.str; };
       fileManager = mkOption { type = types.str; };
       launcher    = mkOption { type = types.str; };
@@ -83,7 +82,6 @@ in
 
     apps = {
       terminal    = "kitty";
-      editor      = "nvim";
       browser     = "firefox";
       fileManager = "thunar";
       launcher    = "wofi";

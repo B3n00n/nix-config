@@ -1,12 +1,44 @@
-{ ... }:
-{
-  home.file.".local/bin/screenshot.sh" = {
-    source = ./scripts/screenshot.sh;
-    executable = true;
-  };
+{ pkgs, ... }:
 
-  home.file.".local/bin/theme-switcher.sh" = {
-    source = ./scripts/theme-switcher.sh;
-    executable = true;
-  };
+let
+  mkScript =
+    name: runtimeInputs:
+    pkgs.writeShellApplication {
+      inherit name runtimeInputs;
+      text = builtins.readFile (./scripts + "/${name}.sh");
+    };
+in
+{
+  home.packages = [
+    (mkScript "screenshot" (
+      with pkgs;
+      [
+        grim
+        slurp
+        wl-clipboard
+        libnotify
+        coreutils
+      ]
+    ))
+    (mkScript "power-menu" (
+      with pkgs;
+      [
+        wofi
+        hyprlock
+        libnotify
+      ]
+    ))
+    (mkScript "theme-switcher" (
+      with pkgs;
+      [
+        wofi
+        libnotify
+        git
+        gnused
+        gawk
+        findutils
+        coreutils
+      ]
+    ))
+  ];
 }

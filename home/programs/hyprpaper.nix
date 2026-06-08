@@ -1,8 +1,6 @@
-# Hyprpaper wallpaper daemon
 { config, ... }:
 
 let
-  # theme.wallpaper is a path literal; hyprpaper's serializer wants a string.
   wallpaperPath = toString config.theme.wallpaper;
 in
 {
@@ -10,10 +8,11 @@ in
     enable = true;
 
     settings = {
-      ipc    = true;
+      ipc = true;
       splash = false;
 
       preload = [ wallpaperPath ];
+      wallpaper = [ ",${wallpaperPath}" ];
     };
   };
 }

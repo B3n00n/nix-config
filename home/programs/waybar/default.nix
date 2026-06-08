@@ -140,16 +140,11 @@ in
 
       "custom/power" = {
         format = "⏻";
-        on-click = "~/.config/waybar/scripts/power-menu.sh";
+        on-click = "power-menu";
         tooltip = false;
       };
     };
 
     style = styleSheet;
-  };
-
-  home.file.".config/waybar/scripts/power-menu.sh" = {
-    source = ../../scripts/power-menu.sh;
-    executable = true;
   };
 }

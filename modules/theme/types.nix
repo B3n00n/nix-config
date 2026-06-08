@@ -70,7 +70,6 @@ in
             colorscheme = mkOption { type = types.str; };
             lualine     = mkOption { type = types.str; };
             plugin      = mkOption { type = types.package; };
-            background  = mkOption { type = types.enum [ "dark" "light" ]; };
           };
         };
       };

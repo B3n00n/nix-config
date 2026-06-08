@@ -20,21 +20,24 @@ in
 
       userSettings = {
         "workbench.colorTheme" = theme.apps.vscode.colorTheme;
-        "workbench.iconTheme"  = "vscode-icons";
+        "workbench.iconTheme" = "vscode-icons";
 
         "editor.fontFamily" = "'${theme.fonts.monospace}', monospace";
-        "editor.fontSize"   = theme.fonts.size.normal + 2;
+        "editor.fontSize" = theme.fonts.size.normal + 2;
         "terminal.integrated.fontFamily" = "'${theme.fonts.terminal}'";
 
         "editor.formatOnSave" = true;
-        "editor.tabSize"      = 2;
-        "editor.wordWrap"     = "on";
+        "editor.tabSize" = 2;
+        "editor.wordWrap" = "on";
 
-        "files.autoSave"               = "afterDelay";
+        "files.autoSave" = "afterDelay";
         "files.trimTrailingWhitespace" = true;
 
         "nix.enableLanguageServer" = true;
-        "nix.serverPath"           = "nixd";
+        "nix.serverPath" = "nixd";
+        "nix.formatterPath" = "nixfmt";
+
+        "rust-analyzer.rustfmt.overrideCommand" = [ "rustfmt" ];
       };
     };
   };

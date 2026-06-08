@@ -5,7 +5,6 @@
       colorscheme = "dracula";
       lualine     = "dracula";
       plugin      = pkgs.vimPlugins.dracula-nvim;
-      background  = "dark";
     };
     spicetify = {
       theme       = spicePkgs.themes.text;
@@ -28,7 +27,6 @@
       colorscheme = "tokyonight-night";
       lualine     = "tokyonight";
       plugin      = pkgs.vimPlugins.tokyonight-nvim;
-      background  = "dark";
     };
     spicetify = {
       theme       = spicePkgs.themes.text;

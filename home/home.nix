@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   vars = config.system.variables;
@@ -42,16 +47,19 @@ in
       # CLI
       claude-code
       nixd
+      nixfmt
 
       # Comms / media
       discord
+      mpv
+      playerctl
 
       # Dev
       android-studio
       arduino-ide
       godot_4_6
       plasticscm-client-complete
-      (unityhub.override { extraLibs = pkgs': [ pkgs'.harfbuzz ]; })  # Unity 6000 fix
+      (unityhub.override { extraLibs = pkgs': [ pkgs'.harfbuzz ]; }) # Unity 6000 fix
       tiled
 
       # Utilities
