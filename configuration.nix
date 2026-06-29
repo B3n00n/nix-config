@@ -7,6 +7,7 @@
 
     ./modules/nix-settings.nix
     ./modules/boot.nix
+    ./modules/memory.nix
     ./modules/networking.nix
     ./modules/locale.nix
     ./modules/audio.nix
