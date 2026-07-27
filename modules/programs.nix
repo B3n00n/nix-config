@@ -14,4 +14,13 @@
       thunar-volman
     ];
   };
+
+  # Steam must be a NixOS program, not a home-manager package: the module
+  # injects hardware.graphics.package32 into Steam's FHS env, enables the
+  # steam-hardware udev rules, 32-bit pipewire, and the firewall ports.
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall                = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
 }

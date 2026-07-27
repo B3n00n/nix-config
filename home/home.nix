@@ -67,6 +67,7 @@ in
       libreoffice
 
       # Utilities
+      anydesk
       drawing
       pokemmo-installer
       proton-vpn
