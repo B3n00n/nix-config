@@ -26,7 +26,20 @@ in
       };
     };
 
-    firewall.allowedTCPPorts = [ 43571 43572 43573 43555 8000 8080 ];
-    firewall.allowedUDPPorts = [ 6454 7777 ];
+    firewall = {
+      allowedTCPPorts = [
+        8000
+        8080
+        43555
+        43571
+        43572
+        43573
+      ];
+
+      allowedUDPPorts = [
+        6454
+        7777
+      ];
+    };
   };
 }

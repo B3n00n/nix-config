@@ -3,6 +3,55 @@
 let
   vars  = config.system.variables;
   theme = config.theme;
+  c     = theme.colors;
+
+  # Identical for GTK 3 and 4.
+  extraConfig = {
+    gtk-application-prefer-dark-theme = theme.dark;
+    gtk-decoration-layout = "menu:close";
+  };
+
+  gtk3Css = theme.cssDefineColors {
+    theme_bg_color          = c.background;
+    theme_fg_color          = c.foreground;
+    theme_base_color        = c.surface1;
+    theme_text_color        = c.foreground;
+    theme_selected_bg_color = c.primary;
+    theme_selected_fg_color = c.background;
+    insensitive_bg_color    = c.surface0;
+    insensitive_fg_color    = c.comment;
+    borders                 = c.surface2;
+    warning_color           = c.yellow;
+    error_color             = c.red;
+    success_color           = c.green;
+  };
+
+  gtk4Css = theme.cssDefineColors {
+    theme_bg_color     = c.background;
+    theme_fg_color     = c.foreground;
+    accent_bg_color    = c.primary;
+    accent_fg_color    = c.background;
+    window_bg_color    = c.background;
+    window_fg_color    = c.foreground;
+    view_bg_color      = c.background;
+    view_fg_color      = c.foreground;
+    headerbar_bg_color = c.surface0;
+    headerbar_fg_color = c.foreground;
+    card_bg_color      = c.surface1;
+    card_fg_color      = c.foreground;
+    popover_bg_color   = c.surface0;
+    popover_fg_color   = c.foreground;
+    dialog_bg_color    = c.surface0;
+    dialog_fg_color    = c.foreground;
+    sidebar_bg_color   = c.surface0;
+    sidebar_fg_color   = c.foreground;
+    warning_bg_color   = c.yellow;
+    warning_fg_color   = c.background;
+    error_bg_color     = c.red;
+    error_fg_color     = c.background;
+    success_bg_color   = c.green;
+    success_fg_color   = c.background;
+  };
 in
 {
   gtk = {
@@ -29,57 +78,9 @@ in
       size    = vars.theme.cursorSize;
     };
 
-    # GTK3 — palette overrides on top of the chosen theme so colors match exactly.
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-      gtk-decoration-layout = "menu:close";
-    };
-    gtk3.extraCss = ''
-      @define-color theme_bg_color ${theme.colors.background};
-      @define-color theme_fg_color ${theme.colors.foreground};
-      @define-color theme_base_color ${theme.colors.surface1};
-      @define-color theme_text_color ${theme.colors.foreground};
-      @define-color theme_selected_bg_color ${theme.colors.primary};
-      @define-color theme_selected_fg_color ${theme.colors.background};
-      @define-color insensitive_bg_color ${theme.colors.surface0};
-      @define-color insensitive_fg_color ${theme.colors.comment};
-      @define-color borders ${theme.colors.surface2};
-      @define-color warning_color ${theme.colors.yellow};
-      @define-color error_color ${theme.colors.red};
-      @define-color success_color ${theme.colors.green};
-    '';
-
-    # GTK4 / libadwaita.
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-      gtk-decoration-layout = "menu:close";
-    };
-    gtk4.extraCss = ''
-      @define-color theme_bg_color ${theme.colors.background};
-      @define-color theme_fg_color ${theme.colors.foreground};
-      @define-color accent_bg_color ${theme.colors.primary};
-      @define-color accent_fg_color ${theme.colors.background};
-      @define-color window_bg_color ${theme.colors.background};
-      @define-color window_fg_color ${theme.colors.foreground};
-      @define-color view_bg_color ${theme.colors.background};
-      @define-color view_fg_color ${theme.colors.foreground};
-      @define-color headerbar_bg_color ${theme.colors.surface0};
-      @define-color headerbar_fg_color ${theme.colors.foreground};
-      @define-color card_bg_color ${theme.colors.surface1};
-      @define-color card_fg_color ${theme.colors.foreground};
-      @define-color popover_bg_color ${theme.colors.surface0};
-      @define-color popover_fg_color ${theme.colors.foreground};
-      @define-color dialog_bg_color ${theme.colors.surface0};
-      @define-color dialog_fg_color ${theme.colors.foreground};
-      @define-color sidebar_bg_color ${theme.colors.surface0};
-      @define-color sidebar_fg_color ${theme.colors.foreground};
-      @define-color warning_bg_color ${theme.colors.yellow};
-      @define-color warning_fg_color ${theme.colors.background};
-      @define-color error_bg_color ${theme.colors.red};
-      @define-color error_fg_color ${theme.colors.background};
-      @define-color success_bg_color ${theme.colors.green};
-      @define-color success_fg_color ${theme.colors.background};
-    '';
+    # Palette overrides on top of the chosen theme so colors match exactly.
+    gtk3 = { inherit extraConfig; extraCss = gtk3Css; };
+    gtk4 = { inherit extraConfig; extraCss = gtk4Css; }; # libadwaita
   };
 
   # Canonical freedesktop "prefers dark" signal. xdg-desktop-portal-gtk
@@ -97,10 +98,5 @@ in
       name = if theme.dark then "adwaita-dark" else "adwaita";
       package = pkgs.adwaita-qt;
     };
-  };
-
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = true;
   };
 }

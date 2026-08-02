@@ -2,7 +2,7 @@
 
 My NixOS + Hyprland setup. Flake-based, themed end-to-end from a single palette file.
 
-![NixOS](https://img.shields.io/badge/NixOS-25.11-blue?logo=nixos&logoColor=white)
+![NixOS](https://img.shields.io/badge/NixOS-26.05-blue?logo=nixos&logoColor=white)
 ![Hyprland](https://img.shields.io/badge/WM-Hyprland-cyan)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -10,7 +10,7 @@ My NixOS + Hyprland setup. Flake-based, themed end-to-end from a single palette 
 
 | Component      | Choice                                  |
 |----------------|-----------------------------------------|
-| OS             | NixOS 25.11 (flakes)                    |
+| OS             | NixOS 26.05 (flakes)                    |
 | WM             | Hyprland                                |
 | Bar / launcher | Waybar / Wofi                           |
 | Terminal       | Kitty                                   |
@@ -48,35 +48,52 @@ configuration.nix               # system imports
 hardware-configuration.nix
 modules/
 ├── variables.nix               # typed, single source of truth
-├── theme.nix                   # exposes `config.theme` to NixOS + HM
 ├── theme/
-│   ├── default.nix             # palette resolver
+│   ├── default.nix             # HM module — exposes `config.theme`
+│   ├── resolve.nix             # palette resolver
 │   ├── types.nix               # palette + integration schemas
-│   ├── lib.nix                 # hexToRgba, removeHash
+│   ├── lib.nix                 # hexToRgba, cssDefineColors, cssRootVars
 │   ├── integrations.nix        # per-theme app config (vscode, neovim, …)
 │   └── palettes/{dracula,tokyo-night}.nix
-├── boot.nix  networking.nix  locale.nix
+├── boot.nix  memory.nix  networking.nix  locale.nix
 ├── audio.nix  nvidia.nix  wayland.nix
 ├── users.nix  programs.nix  services.nix
 ├── packages.nix  fonts.nix
-├── nix-settings.nix  nix-ld.nix  overlays.nix
+├── nix-settings.nix  nix-ld.nix
 home/
 ├── home.nix                    # home-manager entry
-├── xdg.nix                     # mimeapps + .desktop for nvim
+├── xdg.nix                     # userDirs, mimeapps, .desktop for nvim
 ├── templates.nix               # Thunar "Create Document" templates
-├── scripts.nix                 # installs scripts to ~/.local/bin
+├── scripts.nix                 # wraps scripts/ with their runtime closures
 ├── scripts/{theme-switcher,screenshot,power-menu}.sh
 └── programs/
     ├── hyprland/{default,bindings}.nix
     ├── waybar/{default.nix,style.css}
     ├── firefox/{default.nix,userChrome.css,userContent.css}
     ├── neovim/{default.nix,init.lua}
-    ├── kitty.nix  mako.nix  wofi.nix
+    ├── kitty.nix  mako.nix  wofi.nix  zathura.nix
     ├── hyprlock.nix  hypridle.nix  hyprpaper.nix
     ├── gtk.nix  vscode.nix  spicetify.nix
     ├── git.nix  zsh.nix  direnv.nix
 assets/{wallpapers,theme-display}/
 ```
+
+## Dev environments
+
+Nothing project-specific is installed globally — no SDKs, no compilers, no
+language servers beyond `nixd` for this repo. Each project carries its own
+`flake.nix` devShell and an `.envrc` (`use flake`); direnv loads it on `cd`,
+and the VS Code direnv extension picks the same environment up automatically.
+
+VS Code extensions are the exception: they are part of the editor, so they stay
+global in `vscode.nix` — including `dotnet-runtime_10`, which the C#/Dev Kit
+extensions run their own code under. Without it they try to download a .NET
+host, and a downloaded host cannot run on NixOS.
+
+⚠️ In a non-git working tree, Nix copies the **entire directory** into the store
+on every evaluation, since it only honours ignore files in git repos. For a
+Unity project under Plastic SCM that means the 20+ GB `Library/` cache. Put the
+flake in a `nix/` subdirectory and point `.envrc` at it with `use flake ./nix`.
 
 ## Keybinds (mod = Alt)
 
@@ -89,7 +106,9 @@ assets/{wallpapers,theme-display}/
 | `mod + \`          | App launcher                 |
 | `mod + L`          | Lock screen                  |
 | `mod + W`          | Fullscreen                   |
-| `mod + P` / `Space`| Float toggle                 |
+| `mod + Space`      | Float toggle                 |
+| `mod + T`          | Toggle split direction       |
+| `mod + E` / `Shift + E` | Move to / toggle scratchpad |
 | `mod + Shift + S`  | Screenshot (area)            |
 | `mod + Shift + T`  | Theme switcher               |
 | `mod + C`          | Clipboard history            |

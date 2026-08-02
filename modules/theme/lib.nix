@@ -22,10 +22,25 @@ let
       g = hexByte (builtins.substring 2 2 s);
       b = hexByte (builtins.substring 4 2 s);
     };
+
+  # { name = value; } -> "<fmt name value>\n<fmt name value>…"
+  renderLines = fmt: attrs:
+    builtins.concatStringsSep "\n"
+      (builtins.attrValues (builtins.mapAttrs fmt attrs));
 in {
   inherit removeHash;
 
   hexToRgba = hex: alpha:
     let c = parseHex hex; in
     "rgba(${toString c.r}, ${toString c.g}, ${toString c.b}, ${alpha})";
+
+  # GTK / Waybar stylesheets: `@define-color name #rrggbb;`
+  cssDefineColors = attrs:
+    renderLines (name: value: "@define-color ${name} ${value};") attrs + "\n";
+
+  # Standard CSS custom properties, wrapped in a `:root` block.
+  cssRootVars = attrs:
+    ":root {\n"
+    + renderLines (name: value: "  ${name}: ${value};") attrs
+    + "\n}\n";
 }

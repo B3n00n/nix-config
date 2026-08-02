@@ -11,7 +11,7 @@ in
 {
   imports = [
     ../modules/variables.nix
-    ../modules/theme.nix
+    ../modules/theme
 
     inputs.spicetify-nix.homeManagerModules.default
 
@@ -74,11 +74,8 @@ in
 
       # Wayland tooling
       cliphist
-      grim
       imv
-      slurp
       wl-clipboard
-      wofi
     ];
 
     # EDITOR comes from programs.neovim.defaultEditor.

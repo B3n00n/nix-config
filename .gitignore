@@ -12,3 +12,6 @@ result-*
 .*.swp
 .*.swo
 *.bak
+
+# Claude Code local settings
+.claude/settings.local.json

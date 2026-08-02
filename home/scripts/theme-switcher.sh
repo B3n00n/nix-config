@@ -1,4 +1,5 @@
-set -euo pipefail
+# Wofi palette picker. Rewrites theme.name in variables.nix, stages it (the
+# flake reads from the git index), then rebuilds in a new terminal window.
 
 readonly NIXOS_DIR="/etc/nixos"
 readonly VARIABLES_FILE="$NIXOS_DIR/modules/variables.nix"

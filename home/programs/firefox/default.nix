@@ -2,7 +2,8 @@
 
 let
   theme = config.theme;
-  paletteVars = {
+
+  rootBlock = theme.cssRootVars {
     "--my-bg"       = theme.colors.background;
     "--my-fg"       = theme.colors.foreground;
     "--my-primary"  = theme.colors.primary;
@@ -12,16 +13,7 @@ let
     "--my-comment"  = theme.colors.comment;
   };
 
-  rootBlock = ''
-    :root {
-    ${builtins.concatStringsSep "\n" (
-      builtins.attrValues (builtins.mapAttrs (name: value: "  ${name}: ${value};") paletteVars)
-    )}
-    }
-
-  '';
-
-  withPalette = path: rootBlock + builtins.readFile path;
+  withPalette = path: rootBlock + "\n" + builtins.readFile path;
 in
 {
   programs.firefox = {

@@ -2,6 +2,17 @@
 
 let
   theme = config.theme;
+
+  mkLabel = { format, size, y }: {
+    monitor = "";
+    text = ''cmd[update:1000] echo "$(date +"${format}")"'';
+    color = theme.colors.foreground;
+    font_size = size;
+    font_family = theme.fonts.monospace;
+    position = "0, ${toString y}";
+    halign = "center";
+    valign = "center";
+  };
 in
 {
   programs.hyprlock = {
@@ -27,26 +38,8 @@ in
       }];
 
       label = [
-        {
-          monitor = "";
-          text = ''cmd[update:1000] echo "$(date +"%H:%M")"'';
-          color = theme.colors.foreground;
-          font_size = 90;
-          font_family = theme.fonts.monospace;
-          position = "0, 150";
-          halign = "center";
-          valign = "center";
-        }
-        {
-          monitor = "";
-          text = ''cmd[update:1000] echo "$(date +"%A, %B %d")"'';
-          color = theme.colors.foreground;
-          font_size = 20;
-          font_family = theme.fonts.monospace;
-          position = "0, 50";
-          halign = "center";
-          valign = "center";
-        }
+        (mkLabel { format = "%H:%M";        size = 90; y = 150; })
+        (mkLabel { format = "%A, %B %d";    size = 20; y = 50;  })
       ];
 
       input-field = [{

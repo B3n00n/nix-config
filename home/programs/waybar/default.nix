@@ -4,33 +4,19 @@ let
   theme = config.theme;
 
   paletteVars = {
-    bg          = theme.colors.background;
-    fg          = theme.colors.foreground;
-    primary     = theme.colors.primary;
-    blue        = theme.colors.blue;
-    red         = theme.colors.red;
-    green       = theme.colors.green;
-    yellow      = theme.colors.yellow;
-    purple      = theme.colors.purple;
-    cyan        = theme.colors.cyan;
-    comment     = theme.colors.comment;
-    surface0    = theme.colors.surface0;
-    lightCyan   = theme.colors.lightCyan;
-    lightGreen  = theme.colors.lightGreen;
+    inherit (theme.colors)
+      primary blue red green yellow purple cyan
+      comment surface0 lightCyan lightGreen;
+    bg = theme.colors.background;
+    fg = theme.colors.foreground;
   };
 
-  defineColor = name: value: "@define-color ${name} ${value};";
-  colorBlock = builtins.concatStringsSep "\n"
-    (builtins.attrValues (builtins.mapAttrs defineColor paletteVars));
-
-  rawCss = builtins.replaceStrings [ "@FONT_MONOSPACE@" ] [ theme.fonts.monospace ]
-    (builtins.readFile ./style.css);
-
-  styleSheet = ''
-    /* Auto-generated palette bindings — see default.nix */
-    ${colorBlock}
-
-  '' + rawCss;
+  styleSheet =
+    "/* Auto-generated palette bindings — see default.nix */\n"
+    + theme.cssDefineColors paletteVars
+    + "\n"
+    + builtins.replaceStrings [ "@FONT_MONOSPACE@" ] [ theme.fonts.monospace ]
+        (builtins.readFile ./style.css);
 in
 {
   programs.waybar = {

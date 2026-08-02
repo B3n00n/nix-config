@@ -1,19 +1,12 @@
-#!/usr/bin/env bash
-# Professional power menu for NixOS with Hyprland
-# Provides lock, logout, reboot, and shutdown options
+# Lock / logout / reboot / shutdown picker.
 
-set -euo pipefail
-
-# Display power menu using wofi
-selected=$(echo -e "  Lock\n  Logout\n  Reboot\n  Shutdown" | \
+selected=$(printf '%s\n' "  Lock" "  Logout" "  Reboot" "  Shutdown" |
   wofi --dmenu --prompt "Power Menu" --width 300 --height 200 || true)
 
-# Exit if user cancelled selection
 if [ -z "$selected" ]; then
   exit 0
 fi
 
-# Execute selected action
 case $selected in
   *Lock)
     hyprlock || notify-send "Error" "Failed to lock screen" --urgency=critical

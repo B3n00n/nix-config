@@ -3,6 +3,15 @@
 let
   theme = config.theme;
 
+  # The extensions below are themselves .NET apps and need a runtime to execute.
+  # Left alone, the .NET Install Tool downloads one, and that binary cannot run
+  # on NixOS — so point every extension at a Nix-provided host instead.
+  #
+  # This is the *editor's* runtime, not the project's. Roslyn currently targets
+  # net10.0 with rollForward=Major, so 10 is the floor; it also satisfies the
+  # net8.0 MSBuild BuildHost. Project SDKs stay in each project's devShell.
+  dotnetHost = "${pkgs.dotnet-runtime_10}/share/dotnet/dotnet";
+
   # C#/Unity extension stack, in dependency order:
   #   .NET Install Tool → C# → IntelliCode → C# Dev Kit → Unity
   # The .NET SDK itself is project-scoped: each project's flake devShell
@@ -49,11 +58,11 @@ in
         "files.autoSave" = "afterDelay";
         "files.trimTrailingWhitespace" = true;
 
+        "dotnetAcquisitionExtension.sharedExistingDotnetPath" = dotnetHost;
+
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nixd";
         "nix.formatterPath" = "nixfmt";
-
-        "rust-analyzer.rustfmt.overrideCommand" = [ "rustfmt" ];
       };
     };
   };

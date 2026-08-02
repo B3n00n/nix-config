@@ -9,6 +9,16 @@ let
     "application/x-shellscript"
   ];
 
+  imvMimeTypes = [
+    "image/png"
+    "image/jpeg"
+    "image/gif"
+    "image/webp"
+    "image/bmp"
+    "image/tiff"
+    "image/svg+xml"
+  ];
+
   mpvMimeTypes = [
     "audio/mpeg"
     "audio/wav"
@@ -47,6 +57,11 @@ let
     ] (_: [ "impress.desktop" ]);
 in
 {
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+  };
+
   xdg.configFile."xfce4/helpers.rc".text = ''
     TerminalEmulator=${vars.apps.terminal}
   '';
@@ -56,6 +71,7 @@ in
     defaultApplications =
       lib.genAttrs nvimMimeTypes (_: [ "nvim.desktop" ])
       // lib.genAttrs mpvMimeTypes (_: [ "mpv.desktop" ])
+      // lib.genAttrs imvMimeTypes (_: [ "imv.desktop" ])
       // officeApps
       // {
         "application/pdf" = [ pdfApp ];
