@@ -86,9 +86,11 @@ language servers beyond `nixd` for this repo. Each project carries its own
 and the VS Code direnv extension picks the same environment up automatically.
 
 VS Code extensions are the exception: they are part of the editor, so they stay
-global in `vscode.nix` — including `dotnet-runtime_10`, which the C#/Dev Kit
-extensions run their own code under. Without it they try to download a .NET
-host, and a downloaded host cannot run on NixOS.
+global in `vscode.nix` — including `dotnet-aspnetcore_10`, which the C#/Dev Kit
+extensions run their own code under. It must be the ASP.NET Core package, not
+the plain runtime: Roslyn needs `Microsoft.NETCore.App` and Dev Kit's ServiceHost
+needs `Microsoft.AspNetCore.App`. Miss either and the extensions try to download
+a .NET host, which cannot run on NixOS.
 
 ⚠️ In a non-git working tree, Nix copies the **entire directory** into the store
 on every evaluation, since it only honours ignore files in git repos. For a

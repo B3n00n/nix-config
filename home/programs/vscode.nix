@@ -7,10 +7,13 @@ let
   # Left alone, the .NET Install Tool downloads one, and that binary cannot run
   # on NixOS — so point every extension at a Nix-provided host instead.
   #
-  # This is the *editor's* runtime, not the project's. Roslyn currently targets
-  # net10.0 with rollForward=Major, so 10 is the floor; it also satisfies the
-  # net8.0 MSBuild BuildHost. Project SDKs stay in each project's devShell.
-  dotnetHost = "${pkgs.dotnet-runtime_10}/share/dotnet/dotnet";
+  # This is the *editor's* runtime, not the project's. Two frameworks are
+  # needed, so this is the ASP.NET Core package rather than the plain runtime:
+  #   Microsoft.NETCore.App    — Roslyn (net10.0, rollForward=Major)
+  #   Microsoft.AspNetCore.App — C# Dev Kit's ServiceHost
+  # Miss either and the .NET Install Tool falls back to downloading a host,
+  # which fails on NixOS. Project SDKs stay in each project's devShell.
+  dotnetHost = "${pkgs.dotnet-aspnetcore_10}/share/dotnet/dotnet";
 
   # C#/Unity extension stack, in dependency order:
   #   .NET Install Tool → C# → IntelliCode → C# Dev Kit → Unity
