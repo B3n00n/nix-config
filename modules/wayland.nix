@@ -10,6 +10,8 @@ in
 
   security.polkit.enable = true;
 
+  security.pam.services.hyprlock = { };
+
   services.greetd = {
     enable = true;
     settings.default_session = {

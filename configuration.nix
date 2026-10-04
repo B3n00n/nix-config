@@ -11,7 +11,8 @@
     ./modules/networking.nix
     ./modules/locale.nix
     ./modules/audio.nix
-    ./modules/nvidia.nix
+    ./modules/graphics.nix
+    ./modules/power.nix
     ./modules/wayland.nix
     ./modules/users.nix
     ./modules/programs.nix

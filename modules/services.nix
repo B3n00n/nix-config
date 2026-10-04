@@ -4,7 +4,14 @@ let
   vars = config.system.variables;
 in
 {
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
+  };
 
   hardware.bluetooth = {
     enable = true;
@@ -19,7 +26,6 @@ in
   services.udisks2.enable = true;
   services.gvfs.enable = true;
 
-  # Anyma uDMX / Studio Due Light Division USB-DMX interface (libusb-only).
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05dc", MODE="0660", GROUP="dialout"
   '';

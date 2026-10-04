@@ -26,6 +26,7 @@ in
     ./programs/kitty.nix
     ./programs/mako.nix
     ./programs/neovim
+    ./programs/pokemmo.nix
     ./programs/spicetify.nix
     ./programs/vscode.nix
     ./programs/waybar
@@ -69,7 +70,6 @@ in
       # Utilities
       anydesk
       drawing
-      pokemmo-installer
       proton-vpn
 
       # Wayland tooling

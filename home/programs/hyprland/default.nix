@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  vars  = config.system.variables;
+  vars = config.system.variables;
   theme = config.theme;
 in
 {
@@ -20,11 +20,11 @@ in
         ",preferred,auto,1"
       ];
 
-      "$terminal"    = vars.apps.terminal;
+      "$terminal" = vars.apps.terminal;
       "$fileManager" = vars.apps.fileManager;
-      "$browser"     = vars.apps.browser;
-      "$menu"        = vars.apps.launcher;
-      "$mainMod"     = "ALT";
+      "$browser" = vars.apps.browser;
+      "$menu" = vars.apps.launcher;
+      "$mainMod" = "ALT";
 
       exec-once = [
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
@@ -36,17 +36,16 @@ in
         "XCURSOR_THEME,${vars.theme.cursorTheme}"
         "XCURSOR_SIZE,${toString vars.theme.cursorSize}"
         "HYPRCURSOR_SIZE,${toString vars.theme.cursorSize}"
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "GBM_BACKEND,nvidia-drm"
+        "LIBVA_DRIVER_NAME,iHD"
       ];
 
       general = {
         gaps_in = 5;
         gaps_out = 10;
         border_size = theme.border.width;
-        "col.active_border"   = "rgba(${theme.removeHash theme.colors.primary}ee) rgba(${theme.removeHash theme.colors.primaryLight}ee) 45deg";
-        "col.inactive_border" = "rgba(${theme.removeHash theme.colors.surface2}aa)";
+        "col.active_border" =
+          "${theme.hyprRgba theme.colors.primary "ee"} ${theme.hyprRgba theme.colors.primaryLight "ee"} 45deg";
+        "col.inactive_border" = theme.hyprRgba theme.colors.surface2 "aa";
         resize_on_border = false;
         allow_tearing = false;
         layout = "dwindle";
@@ -61,7 +60,7 @@ in
           enabled = true;
           range = 4;
           render_power = 3;
-          color = "rgba(${theme.removeHash theme.colors.background}ee)";
+          color = theme.hyprRgba theme.colors.background "ee";
         };
 
         blur = {
@@ -130,7 +129,10 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config = {
       common.default = [ "gtk" ];
-      hyprland.default = [ "hyprland" "gtk" ];
+      hyprland.default = [
+        "hyprland"
+        "gtk"
+      ];
     };
   };
 }

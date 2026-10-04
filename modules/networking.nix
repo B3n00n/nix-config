@@ -39,6 +39,7 @@ in
       allowedUDPPorts = [
         6454
         7777
+        27717
       ];
     };
   };
