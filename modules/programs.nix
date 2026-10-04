@@ -17,6 +17,4 @@
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
   };
-
-  services.teamviewer.enable = true;
 }

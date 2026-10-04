@@ -68,7 +68,6 @@ in
       libreoffice
 
       # Utilities
-      anydesk
       drawing
       proton-vpn
 
